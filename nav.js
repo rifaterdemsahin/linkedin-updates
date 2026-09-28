@@ -13,8 +13,9 @@ function renderSharedNav() {
   const links = [
     { href: 'index.html', label: '📊 Dashboard', id: 'index.html' },
     { href: 'skills-order.html', label: '🎯 Skills Order', id: 'skills-order.html' },
+    { href: 'self-learning.html', label: '🧠 Self-Learning', id: 'self-learning.html' },
     { href: 'profiles.html', label: '👥 Profiles & Scores', id: 'profiles.html' },
-    { href: 'skills-gaps.html', label: '🧠 Skills Gaps', id: 'skills-gaps.html' },
+    { href: 'skills-gaps.html', label: '💡 Skills Gaps', id: 'skills-gaps.html' },
     { href: 'todos.html', label: '✅ Todos', id: 'todos.html' },
     { href: 'playbook.html', label: '📖 Playbook', id: 'playbook.html' },
     { href: 'dictionary.html', label: '📚 Dictionary', id: 'dictionary.html' },
@@ -69,6 +70,12 @@ function renderSharedNav() {
 
 // Search Index
 const searchableItems = [
+  { title: "Self-Learning AI & AGI Systems Mastery", category: "Self-Learning", url: "self-learning.html", desc: "Autonomous self-reflection, STaR/GRPO reasoning loops, Voyager skill synthesis, DSPy." },
+  { title: "STaR & GRPO Reinforcement Loops", category: "Self-Learning", url: "self-learning.html#architectures", desc: "Self-Taught Reasoner and Group Relative Policy Optimization self-improvement." },
+  { title: "Reflexion: Verbal Reinforcement Learning", category: "Self-Learning", url: "self-learning.html#architectures", desc: "Episodic memory buffers turning environment execution errors into self-critiques." },
+  { title: "Voyager Autonomous Tool Synthesis", category: "Self-Learning", url: "self-learning.html#architectures", desc: "Agents synthesizing Python tools, testing in sandboxes, and building skill libraries." },
+  { title: "DSPy & TextGrad Auto-Optimization", category: "Self-Learning", url: "self-learning.html#architectures", desc: "Backpropagating textual feedback to compile prompts and hyperparameters." },
+  { title: "2026 Self-Learning Master Curriculum", category: "Self-Learning", url: "self-learning.html#curriculum", desc: "Mandatory papers: DeepSeek-R1, STaR, Reflexion, Voyager, Self-Rewarding LMs." },
   { title: "Skills Master Order: Removes & Adds", category: "Skills Order", url: "skills-order.html", desc: "Top 3 pinned skills, skills to remove (Codespaces), and master 1-20 ranking." },
   { title: "Top 3 Pinned Skills (AGI, Agents, LLM)", category: "Skills Order", url: "skills-order.html", desc: "Prime algorithmic real estate for recruiter search boolean strings." },
   { title: "Skills to Remove (Codespaces, Atom, Nano)", category: "Skills Order", url: "skills-order.html", desc: "Eliminate legacy and trivial editor tools dragging down architect rates." },

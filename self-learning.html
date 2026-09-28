@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self-Learning AI & AGI Systems Mastery | Erdem (Rifat) Sahin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.88);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-cyan: #06b6d4;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 10% 20%, rgba(168, 85, 247, 0.1) 0px, transparent 40%),
+        radial-gradient(at 90% 80%, rgba(56, 189, 248, 0.1) 0px, transparent 40%),
+        radial-gradient(at 50% 50%, rgba(16, 185, 129, 0.05) 0px, transparent 60%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1.5rem 1.5rem 5rem;
+    }
+
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    /* Page Header */
+    .page-header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 20%, #c084fc 60%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #d8b4fe;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-meta {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-top: 0.35rem;
+    }
+
+    .header-cta-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Executive Positioning Banner */
+    .moat-banner {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(56, 189, 248, 0.08));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .moat-banner { grid-template-columns: 1fr; }
+    }
+
+    .moat-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #f3e8ff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .moat-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .moat-stat-box {
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .moat-stat-val {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .moat-stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+
+    /* Section Headings */
+    .section-head {
+      margin: 2.5rem 0 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #fff;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Cards & Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      border-color: rgba(168, 85, 247, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+    .badge-purple { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .badge-blue { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-amber { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Diagram Containers */
+    .diagram-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 12px 36px -10px rgba(0,0,0,0.5);
+    }
+
+    .diagram-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 1rem;
+    }
+
+    .diagram-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .diagram-svg-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: #040814;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 1rem 0;
+      position: relative;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .copy-pill-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .copy-pill-btn:hover {
+      background: var(--accent-purple);
+      color: #fff;
+      border-color: var(--accent-purple);
+    }
+    .copy-pill-btn.copied {
+      background: var(--accent-emerald) !important;
+      color: #fff !important;
+      border-color: var(--accent-emerald) !important;
+    }
+
+    /* Curriculum Table */
+    .curriculum-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 1rem 0 2rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+    }
+
+    .curriculum-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .curriculum-table td {
+      padding: 1.1rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.92rem;
+      vertical-align: middle;
+    }
+
+    .curriculum-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .curriculum-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .paper-link {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .paper-link:hover { text-decoration: underline; color: #7dd3fc; }
+
+    /* Commercial Pitch Box */
+    .commercial-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 182, 212, 0.06));
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .commercial-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #6ee7b7;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pitch-quote {
+      background: rgba(3, 7, 18, 0.7);
+      border-left: 4px solid var(--accent-emerald);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      font-style: italic;
+      color: #e2e8f0;
+      font-size: 1rem;
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 999999;
+      pointer-events: none;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared Global Navigation Placeholder -->
+  <div id="shared-nav-container"></div>
+
+  <div class="container">
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div>
+        <div class="header-badge">Frontier AGI Specialization • 2026 Blueprint</div>
+        <h1>🧠 Self-Learning AI & AGI Systems</h1>
+        <p class="header-meta">
+          Architectural mastery for systems that reflect, learn from environment feedback, evolve their own tool libraries, and self-optimize prompts and policy weights without manual human retraining.
+        </p>
+      </div>
+      <div class="header-cta-group">
+        <a href="#curriculum" class="btn btn-primary">📖 Study Curriculum</a>
+        <a href="#architectures" class="btn btn-secondary">⚡ Core Architectures</a>
+        <a href="#commercials" class="btn btn-secondary">💼 Enterprise Pitch</a>
+      </div>
+    </header>
+
+    <!-- Executive Positioning Banner -->
+    <div class="moat-banner">
+      <div>
+        <div class="moat-title">
+          <span>🎯 Your Distinctive Market Moat: The Self-Learning Systems Architect</span>
+        </div>
+        <p class="moat-text">
+          98% of AI engineers build <strong>static, brittle chains</strong>: when an API schema changes or an edge case fails, their system halts until an engineer manually edits the prompt. 
+          As an <strong>AGI Researcher specializing in Self-Learning</strong>, you build <strong>closed-loop cognitive systems</strong> that detect failures, generate verbal critiques, update their internal skill libraries, and optimize their own test-time reasoning traces.
+        </p>
+      </div>
+      <div class="moat-stat-box">
+        <div class="moat-stat-val">£1,500+</div>
+        <div class="moat-stat-label">Daily Contracting Rate for Self-Healing AI Architects</div>
+      </div>
+    </div>
+
+    <!-- Section 1: The 5 Architectural Pillars of Self-Learning -->
+    <div class="section-head" id="architectures">
+      <div>
+        <h2 class="section-title">🏛️ The 5 Pillars of Self-Learning AI Systems</h2>
+        <p class="section-subtitle">The algorithmic paradigms transforming static LLMs into self-improving autonomous agents</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Pillar 1: Reasoning & Test-Time Search -->
+      <div class="card">
+        <span class="card-badge badge-purple">Pillar 1 • Test-Time Search</span>
+        <h3 class="card-title">1. STaR & GRPO Reinforcement Loops</h3>
+        <p class="card-desc">
+          <strong>Self-Taught Reasoner (STaR)</strong> and <strong>Group Relative Policy Optimization (GRPO)</strong> represent the shift toward models discovering their own reasoning strategies. Instead of mimicking human chains, the model explores multiple rationale paths, rewards correct outcomes, and fine-tunes itself on verified successes.
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>Core Loop: STaR Rationalization Engine</span>
+            <button class="copy-pill-btn" onclick="copySnippet('star-code')">Copy</button>
+          </div>
+<pre id="star-code"># Self-Taught Reasoner (STaR) Minimal Sampling Loop
+def star_self_learn_step(model, question, ground_truth, n_samples=8):
+    # 1. Sample multiple reasoning rationales
+    candidates = model.generate_rationales(question, n=n_samples)
+    
+    # 2. Filter via outcome/process verifiers
+    verified = [c for c in candidates if verify_answer(c.answer, ground_truth)]
+    
+    # 3. Rationalization for failed instances (hinted self-correction)
+    if not verified:
+        hint = f"Hint: The correct final answer is {ground_truth}"
+        verified = model.generate_rationale_with_hint(question, hint)
+        
+    # 4. Commit winning reasoning traces to fine-tuning dataset
+    replay_buffer.add(question, verified)
+    return model.step_dpo_or_grpo(replay_buffer)</pre>
+        </div>
+      </div>
+
+      <!-- Pillar 2: Reflexion & Verbal Reinforcement -->
+      <div class="card">
+        <span class="card-badge badge-blue">Pillar 2 • Episodic Self-Correction</span>
+        <h3 class="card-title">2. Reflexion: Verbal Reinforcement Learning</h3>
+        <p class="card-desc">
+          Pioneered by Shinn et al. Rather than updating neural weights with slow gradient backpropagation, the agent translates runtime environment errors (unit test fails, API exceptions, hallucinated schemas) into <strong>natural language self-critiques</strong> stored in persistent episodic memory.
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>Reflexion Episodic Memory Loop</span>
+            <button class="copy-pill-btn" onclick="copySnippet('reflexion-code')">Copy</button>
+          </div>
+<pre id="reflexion-code"># Reflexion: Turning Execution Failures into Memory
+class ReflexionAgent:
+    def __init__(self):
+        self.memory = EpisodicBuffer()
+
+    def execute_with_reflection(self, task, max_trials=3):
+        for trial in range(max_trials):
+            context = self.memory.retrieve_relevant_critiques(task)
+            trajectory = self.actor.run(task, past_mistakes=context)
+            evaluation = self.evaluator.test(trajectory)
+            
+            if evaluation.passed:
+                return trajectory.solution
+            
+            # Autonomous Self-Reflection
+            critique = self.self_critique(trajectory, evaluation.error)
+            self.memory.append(task=task, critique=critique)
+        raise SystemStallError("Max self-correction trials reached")</pre>
+        </div>
+      </div>
+
+      <!-- Pillar 3: Tool Self-Synthesis (Voyager Paradigm) -->
+      <div class="card">
+        <span class="card-badge badge-emerald">Pillar 3 • Lifelong Skill Acquisition</span>
+        <h3 class="card-title">3. Autonomous Tool & Skill Synthesis (Voyager)</h3>
+        <p class="card-desc">
+          Frontier agents don't rely on hardcoded toolsets. As demonstrated by <strong>NVIDIA's Voyager</strong>, the agent synthesizes <em>executable Python functions</em> to solve novel tasks, tests them in an isolated sandbox, validates AST types, and commits them to a <strong>ChromaDB Skill Library</strong> to retrieve and reuse forever.
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>Autonomous Tool Synthesis & Indexing</span>
+            <button class="copy-pill-btn" onclick="copySnippet('voyager-code')">Copy</button>
+          </div>
+<pre id="voyager-code"># Voyager Skill Library: Agent writes its own tools
+def acquire_new_skill(agent, obstacle_desc, sandbox):
+    # 1. Synthesize executable Python tool code
+    tool_code = agent.code_generator.write_tool(obstacle_desc)
+    
+    # 2. Execute unit tests inside ephemeral Docker container
+    test_result = sandbox.run_tests(tool_code)
+    
+    # 3. If verified, generate docstring embedding & commit
+    if test_result.all_passed:
+        vector_store.upsert(
+            id=tool_code.function_name,
+            embedding=embed(tool_code.docstring),
+            metadata={"code": tool_code.raw_str}
+        )
+        return "Skill acquired and available for all future plans"</pre>
+        </div>
+      </div>
+
+      <!-- Pillar 4: Meta-Prompt Optimization (DSPy & TextGrad) -->
+      <div class="card">
+        <span class="card-badge badge-amber">Pillar 4 • Algorithmic Prompt Tuning</span>
+        <h3 class="card-title">4. Automatic Self-Tuning (DSPy & TextGrad)</h3>
+        <p class="card-desc">
+          Manual prompt engineering is obsolete in 2026. <strong>DSPy</strong> and <strong>TextGrad</strong> formulate prompt and pipeline design as an optimization problem. The system evaluates itself against an objective loss metric, backpropagating natural language gradients to rewrite instructions and select optimal few-shot exemplars automatically.
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>DSPy MIPROv2 Pipeline Auto-Compiler</span>
+            <button class="copy-pill-btn" onclick="copySnippet('dspy-code')">Copy</button>
+          </div>
+<pre id="dspy-code">import dspy
+from dspy.teleprompt import MIPROv2
+
+# Define declarative pipeline without hardcoded prompts
+class AgenticResearchModule(dspy.Module):
+    def __init__(self):
+        self.reason = dspy.ChainOfThought("task -> search_queries")
+        self.synthesize = dspy.Predict("findings, task -> executive_report")
+
+# Self-Compiling Optimization against automated metric
+teleprompter = MIPROv2(metric=eval_metric_completeness, auto="heavy")
+compiled_agent = teleprompter.compile(
+    AgenticResearchModule(), 
+    trainset=gold_dataset,
+    requires_permission_to_run=False
+)</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Visual Deep Dive - SVG Architectures -->
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">📊 Visualizing the Self-Learning Architecture</h2>
+        <p class="section-subtitle">How closed-loop autonomous learning flows from inference to permanent system evolution</p>
+      </div>
+    </div>
+
+    <!-- Diagram 1: The Closed-Loop Self-Improving Agent -->
+    <div class="diagram-card">
+      <div class="diagram-header">
+        <div>
+          <h3>🔄 The Closed-Loop Self-Improving Agent Architecture</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
+            Continuous adaptation loop combining execution, verification, verbal critique, and episodic memory persistence.
+          </p>
+        </div>
+        <span class="badge-purple card-badge">End-to-End Loop</span>
+      </div>
+
+      <div class="diagram-svg-wrap">
+        <svg viewBox="0 0 1000 360" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad-user" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0284c7" stop-opacity="0.1"/>
+            </linearGradient>
+            <linearGradient id="grad-actor" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.1"/>
+            </linearGradient>
+            <linearGradient id="grad-verifier" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#d97706" stop-opacity="0.1"/>
+            </linearGradient>
+            <linearGradient id="grad-memory" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#10b981" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#059669" stop-opacity="0.1"/>
+            </linearGradient>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+            </marker>
+            <marker id="arrow-emerald" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981"/>
+            </marker>
+            <marker id="arrow-rose" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#f43f5e"/>
+            </marker>
+          </defs>
+
+          <!-- Node 1: Task / Environment Input -->
+          <g transform="translate(40, 130)">
+            <rect width="160" height="90" rx="10" fill="url(#grad-user)" stroke="#38bdf8" stroke-width="1.5"/>
+            <text x="80" y="38" fill="#38bdf8" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="14" text-anchor="middle">🎯 Task & Context</text>
+            <text x="80" y="62" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">User / Production Event</text>
+          </g>
+
+          <!-- Arrow 1 to Actor -->
+          <line x1="200" y1="175" x2="260" y2="175" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Node 2: Actor & Reasoning -->
+          <g transform="translate(265, 115)">
+            <rect width="190" height="120" rx="10" fill="url(#grad-actor)" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="95" y="35" fill="#d8b4fe" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="14" text-anchor="middle">🧠 Frontier Actor Model</text>
+            <text x="95" y="58" fill="#e2e8f0" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">DeepSeek-R1 / Claude 3.7</text>
+            <text x="95" y="80" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Generates reasoning trace</text>
+            <text x="95" y="98" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">& executes action</text>
+          </g>
+
+          <!-- Arrow 2 to Verifier -->
+          <line x1="455" y1="175" x2="515" y2="175" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Node 3: Verifier & Sandbox -->
+          <g transform="translate(520, 115)">
+            <rect width="190" height="120" rx="10" fill="url(#grad-verifier)" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="95" y="35" fill="#fcd34d" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="14" text-anchor="middle">⚖️ Verifier / PRM</text>
+            <text x="95" y="58" fill="#e2e8f0" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Process Reward Model</text>
+            <text x="95" y="80" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">Tests Python syntax, AST,</text>
+            <text x="95" y="98" fill="#94a3b8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" text-anchor="middle">unit tests & guardrails</text>
+          </g>
+
+          <!-- Success Path (to Output) -->
+          <line x1="710" y1="175" x2="780" y2="175" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+          <text x="745" y="165" fill="#10b981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">PASSED</text>
+
+          <!-- Node 4: Production Result -->
+          <g transform="translate(785, 130)">
+            <rect width="175" height="90" rx="10" fill="url(#grad-memory)" stroke="#10b981" stroke-width="1.5"/>
+            <text x="87" y="38" fill="#6ee7b7" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="14" text-anchor="middle">✅ Verified Output</text>
+            <text x="87" y="62" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">User Success & ROI</text>
+          </g>
+
+          <!-- Failure / Self-Learning Reflection Feedback Loop (Below) -->
+          <path d="M 615 235 L 615 300 L 360 300 L 360 240" fill="none" stroke="#f43f5e" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow-rose)"/>
+          <text x="490" y="290" fill="#f43f5e" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">FAILED: Verbal Reflection Critique & Epistemic Memory Update</text>
+
+          <!-- Memory Integration Box (Top) -->
+          <g transform="translate(350, 20)">
+            <rect width="300" height="55" rx="8" fill="#0b1329" stroke="#38bdf8" stroke-width="1"/>
+            <text x="150" y="25" fill="#38bdf8" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="12" text-anchor="middle">💾 Vector Skill & Mistake Memory (Letta/Voyager)</text>
+            <text x="150" y="44" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Critiques & synthesized tools dynamically injected into next prompt</text>
+          </g>
+
+          <line x1="450" y1="75" x2="380" y2="115" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="550" y1="75" x2="580" y2="115" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Section 3: Curated 2026 Self-Learning Master Curriculum -->
+    <div class="section-head" id="curriculum">
+      <div>
+        <h2 class="section-title">📚 The 2026 Self-Learning Master Curriculum</h2>
+        <p class="section-subtitle">The mandatory papers, reference repos, and hands-on builds to solidify your authority</p>
+      </div>
+    </div>
+
+    <table class="curriculum-table">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Landmark Paper & Link</th>
+          <th>Core Breakthrough / 1-Sentence Takeaway</th>
+          <th>What to Build in Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge-purple card-badge">Reasoning RL</span></td>
+          <td>
+            <a href="https://arxiv.org/abs/2501.12948" target="_blank" class="paper-link">
+              DeepSeek-R1 (GRPO) ↗
+            </a>
+          </td>
+          <td>Discovered that pure rule-based RL without a critic network (GRPO) incentives LLMs to develop self-verification, backtracking, and long chain-of-thought exploration organically.</td>
+          <td><code>mini-grpo.py</code>: 100-line group relative policy optimization sampler on math/logic queries.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-purple card-badge">Self-Bootstrapping</span></td>
+          <td>
+            <a href="https://arxiv.org/abs/2203.14465" target="_blank" class="paper-link">
+              STaR: Self-Taught Reasoner ↗
+            </a>
+          </td>
+          <td>Models generate their own reasoning traces, check if answer matches ground-truth, and fine-tune on verified rationales, continually improving reasoning capability.</td>
+          <td><code>star_filter.py</code>: Rejection-sampling pipeline that converts failed attempts into hinted rationales.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-blue card-badge">Self-Correction</span></td>
+          <td>
+            <a href="https://arxiv.org/abs/2303.11366" target="_blank" class="paper-link">
+              Reflexion (Shinn et al.) ↗
+            </a>
+          </td>
+          <td>Replaces gradient updates with natural language verbal self-critique buffered into episodic memory, boosting HumanEval coding performance by +22%.</td>
+          <td><code>reflexion_agent.py</code>: Autonomous coding agent that reads compiler/test outputs and reflects before retry.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-emerald card-badge">Lifelong Tools</span></td>
+          <td>
+            <a href="https://arxiv.org/abs/2305.16291" target="_blank" class="paper-link">
+              Voyager (NVIDIA) ↗
+            </a>
+          </td>
+          <td>Open-ended embodied agent that autonomously synthesizes executable Python skills, evaluates them in sandbox, and stores them in a vectorized skill library.</td>
+          <td><code>skill_library.py</code>: ChromaDB vector store that stores agent-written Python functions and validates AST.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-amber card-badge">Auto-Optimization</span></td>
+          <td>
+            <a href="https://arxiv.org/abs/2310.03714" target="_blank" class="paper-link">
+              DSPy (Stanford) ↗
+            </a>
+          </td>
+          <td>Compiles declarative LM pipelines by automatically optimizing prompts, instructions, and few-shot demonstrations against arbitrary evaluation metrics.</td>
+          <td><code>dspy_optimizer.py</code>: Compiling a multi-step agent pipeline using MIPROv2 to outperform manual prompts.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-blue card-badge">Text Gradients</span></td>
+          <td>
+            <a href="https://arxiv.org/abs/2406.07496" target="_blank" class="paper-link">
+              TextGrad (Stanford) ↗
+            </a>
+          </td>
+          <td>Formulates AI systems as computation graphs where feedback is backpropagated as natural language "gradients" to tune prompts, code, and hyperparameters.</td>
+          <td><code>textgrad_demo.py</code>: Optimizing system prompt and tool definitions through backpropagated critique text.</td>
+        </tr>
+        <tr>
+          <td><span class="badge-emerald card-badge">Self-Alignment</span></td>
+          <td>
+            <a href="https://arxiv.org/abs/2401.10020" target="_blank" class="paper-link">
+              Self-Rewarding LMs (Meta) ↗
+            </a>
+          </td>
+          <td>The model judges its own outputs via LLM-as-a-Judge during training, creating a self-reinforcing flywheel that surpasses human rater quality limits.</td>
+          <td><code>self_reward_dpo.py</code>: Pairwise response generator and internal judge scoring pairs for DPO fine-tuning.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 4: Enterprise Commercialization Pitch -->
+    <div class="commercial-box" id="commercials">
+      <h3>💼 How to Pitch "Self-Learning Architecture" to Enterprise Clients</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+        Enterprise CTOs are terrified of deploying agents because "they hallucinate and break down after 3 weeks in production." 
+        When you pitch self-learning, frame it as <strong>self-healing, enterprise-grade resilience</strong>:
+      </p>
+
+      <div class="pitch-quote">
+        "Most consultancies will sell you a brittle LangChain script that requires a software engineer on standby every time an API schema changes or an unpredictable edge case occurs. 
+        <br><br>
+        <strong>What I architect is a Self-Healing Cognitive System:</strong> It monitors its own execution traces, verifies intermediate steps with automated guardrails, and when an anomaly occurs, it generates a verbal post-mortem into persistent memory and optimizes its own prompt parameters so the failure mode is never repeated."
+      </div>
+
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+        <button class="btn btn-primary" onclick="copySnippet('pitch-text')">📋 Copy Executive Pitch</button>
+        <a href="playbook.html" class="btn btn-secondary">📘 View Contracting Playbook</a>
+      </div>
+      <div style="display: none;" id="pitch-text">Most consultancies will sell you a brittle agent script that requires a software engineer on standby every time an API schema changes or an unpredictable edge case occurs. What I architect is a Self-Healing Cognitive System: It monitors its own execution traces, verifies intermediate steps with automated guardrails, and when an anomaly occurs, it generates a verbal post-mortem into persistent memory and optimizes its own prompt parameters so the failure mode is never repeated.</div>
+    </div>
+
+    <!-- Section 5: The 30-Day Action Roadmap -->
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">🚀 30-Day Hands-On Execution Plan</h2>
+        <p class="section-subtitle">Concrete milestones to build your public GitHub proof-of-work</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="card-badge badge-purple">Week 1–2 • Core Reasoning</span>
+        <h4 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem;">Build & Open-Source a Mini-GRPO / STaR Loop</h4>
+        <ul style="color: var(--text-muted); font-size: 0.9rem; padding-left: 1.25rem; line-height: 1.8;">
+          <li>Implement a minimal Python script using Ollama or DeepSeek API that generates 8 rationales per question.</li>
+          <li>Apply an automated Python code execution verifier to check mathematical / programmatic correctness.</li>
+          <li>Re-sample hinted rationales for the failed queries and log the accuracy progression graph.</li>
+          <li><strong>Deliverable:</strong> GitHub repository <code>mini-star-reasoner</code> + LinkedIn technical carousel.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-badge badge-blue">Week 3–4 • Agent Self-Correction</span>
+        <h4 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem;">Build a Reflexion Memory Engine for DeliveryPilot</h4>
+        <ul style="color: var(--text-muted); font-size: 0.9rem; padding-left: 1.25rem; line-height: 1.8;">
+          <li>Build an autonomous agent with SQLite/ChromaDB episodic memory that writes and tests SQL or API requests.</li>
+          <li>Inject previous error critiques when an execution fails, proving that trial 2 succeeds where trial 1 failed.</li>
+          <li>Benchmark the pass@k rate with vs. without verbal reflection.</li>
+          <li><strong>Deliverable:</strong> Case study showing a 40% reduction in agent failure rates in enterprise pipelines.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">Copied to clipboard!</div>
+
+  <!-- Shared Scripts -->
+  <script src="nav.js"></script>
+  <script>
+    function copySnippet(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText || el.textContent;
+      navigator.clipboard.writeText(text.trim()).then(() => {
+        showToast('Code copied to clipboard!');
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LinkedIn Updates & Contracting OS | Rifat Erdem Sahin</title>
+  <title>LinkedIn Updates & CV Analysis OS | Rifat Erdem Sahin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #090d16;
-      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-bg: rgba(18, 24, 38, 0.88);
       --card-border: rgba(255, 255, 255, 0.08);
       --accent-blue: #38bdf8;
       --accent-purple: #a855f7;
@@ -23,11 +23,7 @@
       --radius: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg);
@@ -38,13 +34,10 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
       min-height: 100vh;
-      padding: 2.5rem 1.5rem 5rem;
+      padding: 2rem 1.5rem 5rem;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    .container { max-width: 1240px; margin: 0 auto; }
 
     header {
       background: var(--card-bg);
@@ -62,7 +55,7 @@
     }
 
     .header-left h1 {
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
@@ -73,11 +66,7 @@
       gap: 0.75rem;
     }
 
-    .header-left p {
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-      font-size: 0.95rem;
-    }
+    .header-left p { color: var(--text-muted); margin-top: 0.35rem; font-size: 0.95rem; }
 
     .header-badge {
       display: inline-flex;
@@ -86,17 +75,14 @@
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.25);
       color: var(--accent-blue);
-      padding: 0.4rem 0.85rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 9999px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
+      margin-bottom: 0.5rem;
     }
 
-    .header-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
+    .header-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
     .btn {
       display: inline-flex;
@@ -145,7 +131,7 @@
     .col-6 { grid-column: span 6; }
     .col-4 { grid-column: span 4; }
 
-    @media (max-width: 900px) {
+    @media (max-width: 950px) {
       .col-8, .col-6, .col-4 { grid-column: span 12; }
     }
 
@@ -171,7 +157,7 @@
     .tag {
       font-size: 0.75rem;
       font-weight: 600;
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.65rem;
       border-radius: 9999px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -181,16 +167,51 @@
     .tag-purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
     .tag-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
     .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+
+    /* CV Audit Stat Cards */
+    .audit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 800px) {
+      .audit-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .audit-grid { grid-template-columns: 1fr; }
+    }
+
+    .audit-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .audit-stat .num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .audit-stat .label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
 
     /* Comparison Box */
     .diff-box {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1.25rem;
       margin-bottom: 1.5rem;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 700px) {
       .diff-box { grid-template-columns: 1fr; }
     }
 
@@ -202,12 +223,12 @@
 
     .diff-col.old {
       background: rgba(244, 63, 94, 0.05);
-      border-color: rgba(244, 63, 94, 0.2);
+      border-color: rgba(244, 63, 94, 0.25);
     }
 
     .diff-col.new {
       background: rgba(16, 185, 129, 0.05);
-      border-color: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.25);
     }
 
     .diff-label {
@@ -223,11 +244,7 @@
     .diff-col.old .diff-label { color: var(--accent-rose); }
     .diff-col.new .diff-label { color: var(--accent-emerald); }
 
-    .diff-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
+    .diff-title { font-size: 1.15rem; font-weight: 700; color: #fff; }
 
     .copy-block {
       background: var(--code-bg);
@@ -288,24 +305,21 @@
     }
 
     .pillar-icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
 
     .pillar-land .pillar-icon { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
     .pillar-train .pillar-icon { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
     .pillar-adapt .pillar-icon { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
-    .pillar-secure .pillar-icon { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .pillar-secure .pillar-icon { background: rgba(168, 85, 247, 0.15); color: var(--accent-emerald); }
 
-    .pillar-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
+    .pillar-title { font-size: 1.15rem; font-weight: 700; color: #fff; }
 
     .pillar-list {
       list-style: none;
@@ -327,6 +341,28 @@
       left: 0;
       color: var(--accent-blue);
       font-weight: bold;
+    }
+
+    /* CV Deep Dive Table */
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .audit-table th, .audit-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .audit-table th {
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
     }
 
     /* Toast */
@@ -361,9 +397,9 @@
     <!-- Header -->
     <header>
       <div class="header-left">
-        <span class="header-badge">🚀 Active Profile Tracker</span>
+        <span class="header-badge">🚀 Active Profile Tracker & CV Analysis</span>
         <h1>LinkedIn Updates & Contracting OS</h1>
-        <p>Target Profile: <strong>Rifat Erdem Sahin</strong> &bull; Positioning for High-Impact Contracting & Advisory</p>
+        <p>Target Profile: <strong>Rifat Erdem Sahin</strong> &bull; Based on LinkedIn CV Export Analysis (Sep 28, 2026)</p>
       </div>
       <div class="header-actions">
         <a href="https://www.linkedin.com/in/rifaterdemsahin/" target="_blank" class="btn btn-primary">
@@ -376,6 +412,79 @@
       </div>
     </header>
 
+    <!-- CV Audit Overview -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <div class="card-title">
+        <span>Deep CV Export Analysis (29 Pages Audited)</span>
+        <span class="tag tag-purple">Comprehensive Audit</span>
+      </div>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+        We analyzed your complete 29-page LinkedIn profile export (<code>linkedin_profle_28_september_2026.pdf</code>). Here is the synthesis of your immense technical firepower versus what is currently holding back your high-rate contracting pipeline:
+      </p>
+
+      <div class="audit-grid">
+        <div class="audit-stat">
+          <div class="num" style="color: var(--accent-emerald);">15+ Yrs</div>
+          <div class="label">Enterprise & Contracting</div>
+        </div>
+        <div class="audit-stat">
+          <div class="num" style="color: var(--accent-blue);">Goldman / MS</div>
+          <div class="label">Tier-1 Client Pedigree</div>
+        </div>
+        <div class="audit-stat">
+          <div class="num" style="color: var(--accent-amber);">SHAP / LIME</div>
+          <div class="label">Adversarial ML Research</div>
+        </div>
+        <div class="audit-stat">
+          <div class="num" style="color: var(--accent-rose);">Codespaces</div>
+          <div class="label">Top Skill Wasted (Fix Now)</div>
+        </div>
+      </div>
+
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>Profile Dimension</th>
+            <th>Current CV State</th>
+            <th>Vulnerability / Bottleneck</th>
+            <th>Required Strategic Transformation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Headline</strong></td>
+            <td><code>Claude Certified Architect Professional</code></td>
+            <td>Boxes you in as an Anthropic tool admin rather than a high-level strategic architect.</td>
+            <td><strong>Pivot to:</strong> <code>AGI Researcher & Agentic Systems Architect</code> (Captures $1k+/day advisory budget).</td>
+          </tr>
+          <tr>
+            <td><strong>Top 3 Skills</strong></td>
+            <td>MLOps, Terraform, Codespaces</td>
+            <td>"Codespaces" is a trivial IDE feature. Zero recruiters search for "Codespaces" for $150k+ roles.</td>
+            <td><strong>Replace with:</strong> Artificial General Intelligence (AGI), Autonomous Multi-Agent Systems, LLM Evals.</td>
+          </tr>
+          <tr>
+            <td><strong>About Summary</strong></td>
+            <td>"Hi there! I'm Erdem Sahin... passionate X Skilled AI Engineer... IaC, Kubernetes, ChatGPT Prompting."</td>
+            <td>Reads like a junior prompt trainer + mid-level DevOps engineer rather than an elite AGI researcher.</td>
+            <td><strong>Rewrite into:</strong> Executive authority bridging Adversarial AI Safety, Cognitive Systems & Enterprise Production.</td>
+          </tr>
+          <tr>
+            <td><strong>Adversarial AI Project</strong></td>
+            <td>2025: Defending Models Against Adversarial Attacks (FGSM, PGD, SHAP, LIME).</td>
+            <td>Deeply impressive research, but framed passively as a project rather than a commercial enterprise solution.</td>
+            <td><strong>Highlight as:</strong> The "Safe AI & Guardrail Architect" — solving the #1 enterprise fear of deploying autonomous agents.</td>
+          </tr>
+          <tr>
+            <td><strong>Contracting History</strong></td>
+            <td>Goldman Sachs, Microsoft, Accenture, Canadalife, WorldCup, Author of "Ultimate IT Contractor".</td>
+            <td>Buried under 29 pages of historical job duties.</td>
+            <td><strong>Elevate into:</strong> Proven Track Record of Delivering High-Trust, Mission-Critical Contracts on Time & Outside IR35.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- Main Grid -->
     <div class="grid">
       
@@ -383,60 +492,60 @@
       <div class="col-8">
         <div class="card">
           <div class="card-title">
-            <span>Update #001: Headline & Identity Pivot</span>
+            <span>Action Item 1: Title & Headline Transformation</span>
             <span class="tag tag-emerald">Ready To Apply</span>
           </div>
 
           <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
-            Shifting positioning from vendor-specific tool implementation (Claude) to frontier research and cognitive architecture leadership (AGI Researcher) to command elite contracting rates.
+            Update your LinkedIn headline immediately. This triggers the algorithm and updates your snippet in recruiter searches:
           </p>
 
           <!-- Diff View -->
           <div class="diff-box">
             <div class="diff-col old">
-              <div class="diff-label">Previous Title</div>
-              <div class="diff-title">Claude Certified Architect</div>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Perceived as a specialized vendor tool practitioner.</p>
+              <div class="diff-label">Current CV Headline</div>
+              <div class="diff-title">Claude Certified Architect Professional</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Perceived as vendor tool practitioner.</p>
             </div>
             <div class="diff-col new">
-              <div class="diff-label">New Strategic Title</div>
-              <div class="diff-title">AGI Researcher</div>
-              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Perceived as a frontier researcher & enterprise AI systems architect.</p>
+              <div class="diff-label">Target Strategic Headline</div>
+              <div class="diff-title">AGI Researcher & Agentic Systems Architect</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Perceived as elite frontier researcher & contractor.</p>
             </div>
           </div>
 
           <!-- Headline Option 1 -->
-          <h4 style="margin-bottom: 0.5rem; color: #fff;">1. Primary Recommended Headline (Optimized for Contracting & Inbound SEO)</h4>
+          <h4 style="margin-bottom: 0.5rem; color: #fff;">Primary Recommended Headline (Exact 219 chars - LinkedIn max is 220)</h4>
           <div class="copy-block">
             <button class="copy-btn" onclick="copyText('headline-1')">Copy Headline</button>
             <pre id="headline-1">AGI Researcher & Agentic Systems Architect | Frontier AI, Multi-Agent Orchestration & LLM Systems | Enterprise AI Strategy & Contracting</pre>
           </div>
 
           <!-- Headline Option 2 -->
-          <h4 style="margin-bottom: 0.5rem; color: #fff;">2. Alternative Headline (Direct Fractional Focus)</h4>
+          <h4 style="margin-bottom: 0.5rem; color: #fff;">Alternative Headline (Direct Fractional & Contracting Focus)</h4>
           <div class="copy-block">
             <button class="copy-btn" onclick="copyText('headline-2')">Copy Alternative</button>
             <pre id="headline-2">AGI Researcher & Fractional AI Architect | Autonomous Agents, Cognitive Systems & LLM Production | Available for Strategic Contracting</pre>
           </div>
 
           <!-- About Section Rewrite -->
-          <h4 style="margin-bottom: 0.5rem; color: #fff;">3. Strategic About Section Rewrite</h4>
+          <h4 style="margin-bottom: 0.5rem; color: #fff;">Action Item 2: Executive About Summary (Replaces Current Summary)</h4>
           <div class="copy-block">
             <button class="copy-btn" onclick="copyText('about-text')">Copy About</button>
             <pre id="about-text">I research and engineer frontier Artificial General Intelligence (AGI) systems, autonomous multi-agent architectures, and production-grade LLM applications.
 
-With a background spanning cloud architecture, DevOps, and certified frontier model implementations, I bridge the critical gap between bleeding-edge research and mission-critical enterprise deployment.
+With 15+ years delivering mission-critical enterprise systems (Goldman Sachs, Microsoft, Accenture) and deep expertise in adversarial ML defenses (SHAP, LIME, robust guardrails), I bridge the critical gap between bleeding-edge research and resilient enterprise deployment.
 
 What I Do:
-• AGI & Agentic Research: Cognitive architectures, self-evolving agents, multi-agent coordination, and recursive problem-solving workflows.
-• Enterprise AI Architecture: Productionizing LLMs, agent evaluation pipelines (Evals), guardrails, and deterministic tool-use systems.
+• AGI & Agentic Research: Cognitive architectures, self-evolving agents, multi-agent swarm coordination, and recursive problem-solving loops.
+• Enterprise AI Architecture: Productionizing LLMs, agent evaluation pipelines (Evals), safety guardrails, and deterministic tool-use systems.
 • Fractional & Contracting Engagements: Guiding executive leadership and engineering teams from prototype to resilient production.
 
 Key Focus Areas:
 Multi-Agent Systems | Autonomous Coding Agents | Cognitive Architectures | LLM Evals & Guardrails | Frontier Model Orchestration
 
 Open for strategic contracting roles, fractional AI architecture, and advisory consultations.
-Connect with me or reach out at: https://www.linkedin.com/in/rifaterdemsahin/</pre>
+Connect with me or reach out at: contact@rifaterdemsahin.com | https://www.linkedin.com/in/rifaterdemsahin/</pre>
           </div>
 
         </div>
@@ -446,11 +555,11 @@ Connect with me or reach out at: https://www.linkedin.com/in/rifaterdemsahin/</p
       <div class="col-4">
         <div class="card" style="margin-bottom: 1.5rem;">
           <div class="card-title">
-            <span>Featured Skills Pivot</span>
-            <span class="tag tag-blue">Reorder</span>
+            <span>Action Item 3: Skills Overhaul</span>
+            <span class="tag tag-rose">Immediate Fix</span>
           </div>
           <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
-            Place these top 5 skills at the top of your LinkedIn profile to optimize recruiter keyword filters:
+            Your CV currently features <strong>Codespaces</strong> in the top 3! Remove it and pin these top 5 skills to match recruiter boolean searches:
           </p>
           <div style="display: flex; flex-direction: column; gap: 0.5rem;">
             <div style="padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.04); border-radius: 6px; font-size: 0.85rem; font-weight: 600; border-left: 3px solid var(--accent-blue);">
@@ -473,11 +582,11 @@ Connect with me or reach out at: https://www.linkedin.com/in/rifaterdemsahin/</p
 
         <div class="card">
           <div class="card-title">
-            <span>Announcement Post</span>
-            <span class="tag tag-purple">Share Now</span>
+            <span>Action Item 4: Network Post</span>
+            <span class="tag tag-purple">Publish Post</span>
           </div>
           <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.8rem;">
-            Publish this update post to signal your transition and invite inbound inquiries:
+            Announce the pivot to your 10,000+ followers to reactivate client conversations:
           </p>
           <div class="copy-block">
             <button class="copy-btn" onclick="copyText('post-text')">Copy Post</button>
@@ -500,9 +609,9 @@ https://www.linkedin.com/in/rifaterdemsahin/</pre>
 
     </div>
 
-    <!-- 4 Pillars of Contracting Section -->
+    <!-- 4 Pillars Section -->
     <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; color: #fff;">
-      The 4 Pillars of High-Impact AI Contracting
+      Contracting Execution Playbook: Land, Train, Adapt, Secure
     </h2>
 
     <div class="grid">
@@ -512,15 +621,15 @@ https://www.linkedin.com/in/rifaterdemsahin/</pre>
           <div class="pillar-header">
             <div class="pillar-icon">🎯</div>
             <div>
-              <div class="pillar-title">1. LAND: Client Acquisition & Inbound SEO</div>
+              <div class="pillar-title">1. LAND: Attracting High-Ticket Clients</div>
               <span class="tag tag-blue">Inbound & Outbound</span>
             </div>
           </div>
           <ul class="pillar-list">
-            <li><strong>SEO Saturation</strong>: Ensure exact match keywords appear across Headline, About, and Experience for recruiter boolean queries.</li>
-            <li><strong>Recruiter-Only Open to Work</strong>: Preserves high-status consultant perception while activating recruiter pipeline filters.</li>
-            <li><strong>Founder/CTO Direct Outreach</strong>: Offer a concise 3-point benchmark audit on agent loop failure modes and evals.</li>
-            <li><strong>Bi-weekly Technical Teardowns</strong>: Share teardowns of frontier models (DeepSeek R1, Claude 3.7, Swarms) to establish technical authority.</li>
+            <li><strong>Recruiter-Only Open to Work</strong>: Set target titles to <em>AGI Researcher, Fractional Head of AI, Lead Agentic Architect</em>.</li>
+            <li><strong>Outbound to Series A-C CTOs</strong>: Pitch the 3-point benchmark audit on agent loop failure modes and prompt drift.</li>
+            <li><strong>Leverage Tier-1 Credentials</strong>: Lead with Goldman Sachs, Microsoft, and Accenture to disarm security/compliance objections.</li>
+            <li><strong>Weekly Production Teardowns</strong>: Share concrete architectures on LinkedIn (e.g. Swarm orchestration vs LangGraph vs CrewAI).</li>
           </ul>
         </div>
       </div>
@@ -531,15 +640,15 @@ https://www.linkedin.com/in/rifaterdemsahin/</pre>
           <div class="pillar-header">
             <div class="pillar-icon">🔬</div>
             <div>
-              <div class="pillar-title">2. TRAIN: Frontier Technical Dominance</div>
-              <span class="tag tag-purple">Skills & Benchmarks</span>
+              <div class="pillar-title">2. TRAIN: Maintaining Frontier Dominance</div>
+              <span class="tag tag-purple">Technical Mastery</span>
             </div>
           </div>
           <ul class="pillar-list">
-            <li><strong>Cognitive Architectures</strong>: Master ReAct, Plan-and-Solve, Reflexion, Swarms, and autonomous agent loops.</li>
-            <li><strong>Evaluation Engineering (Evals)</strong>: The #1 missing competency in enterprise AI (DeepEval, Ragas, LLM-as-judge).</li>
-            <li><strong>Inference & Latency Optimization</strong>: vLLM, speculative decoding, model distillation, and strict JSON schemas.</li>
-            <li><strong>Continuous Arxiv Scans</strong>: Maintain a 6-12 month advantage ahead of standard full-stack developers.</li>
+            <li><strong>Evaluation Engineering (Evals)</strong>: The #1 enterprise blindspot. Master DeepEval, Ragas, and LLM-as-judge harnesses.</li>
+            <li><strong>Cognitive Architectures</strong>: ReAct, Plan-and-Solve, Reflexion, Swarms, and Autonomous Coding Agents.</li>
+            <li><strong>Adversarial ML & Guardrails</strong>: Connect your SHAP/LIME research to modern guardrails (NeMo, Llama Guard).</li>
+            <li><strong>Latency & Cost Engineering</strong>: vLLM, speculative decoding, model distillation, and strict Pydantic schemas.</li>
           </ul>
         </div>
       </div>
@@ -550,15 +659,15 @@ https://www.linkedin.com/in/rifaterdemsahin/</pre>
           <div class="pillar-header">
             <div class="pillar-icon">⚡</div>
             <div>
-              <div class="pillar-title">3. ADAPT: Research to Production ROI</div>
-              <span class="tag tag-amber">Enterprise Reality</span>
+              <div class="pillar-title">3. ADAPT: Research to Enterprise ROI</div>
+              <span class="tag tag-amber">Production Reality</span>
             </div>
           </div>
           <ul class="pillar-list">
-            <li><strong>Smallest Viable Agent</strong>: Replace bloated 5-agent swarms with clean single prompts + structured tools when sufficient.</li>
-            <li><strong>Deterministic Wrappers</strong>: Protect stochastic models with strict Pydantic schemas, validation regexes, and retry fallbacks.</li>
-            <li><strong>Observability First</strong>: Implement Langfuse / Phoenix tracing to quantify token costs, latency, and failure vectors for executives.</li>
-            <li><strong>Business-First Language</strong>: Translate "AGI & multi-agents" into "automation of Tier-2 workflows with 90% error reduction".</li>
+            <li><strong>Smallest Viable Agent</strong>: Never deploy a 5-agent swarm when a single prompt with structured tools solves the problem.</li>
+            <li><strong>Deterministic Wrappers</strong>: Shield non-deterministic models behind strict Pydantic types, schema validation, and retry logic.</li>
+            <li><strong>Full Observability</strong>: Instrument Langfuse / Arize Phoenix before launching agents to prove token savings and latency to CFOs.</li>
+            <li><strong>Business Translation</strong>: Translate "AGI" into "eliminating 80% of Tier-2 engineering support tickets with 0 regressions".</li>
           </ul>
         </div>
       </div>
@@ -574,10 +683,10 @@ https://www.linkedin.com/in/rifaterdemsahin/</pre>
             </div>
           </div>
           <ul class="pillar-list">
-            <li><strong>2-Week Discovery Sprint</strong>: Sell a fixed-fee Architecture Audit (£5k-£10k) as the low-friction gateway to long-term work.</li>
-            <li><strong>Retainer & Day Rates</strong>: Structure engagements around £800-£1,500/day or £8,000-£16,000/month fractional advisory.</li>
-            <li><strong>Defend Scope Creep</strong>: Tie Definition of Done (DoD) to quantitative benchmark metrics (e.g., accuracy >= 90% across 500 evals).</li>
-            <li><strong>Outside IR35 & SOW Protection</strong>: Clear business-to-business deliverables, substitution rights, and no MOO.</li>
+            <li><strong>2-Week Discovery Sprint</strong>: Sell a fixed-fee Architecture Audit (£5,000–£10,000) as the seamless foot in the door.</li>
+            <li><strong>Target Contracting Rates</strong>: £800–£1,500/day or £8,000–£16,000/month for fractional AI advisory.</li>
+            <li><strong>Defend Scope Creep</strong>: Tie Definition of Done (DoD) to quantitative eval benchmarks (e.g. accuracy >= 92% across test suite).</li>
+            <li><strong>Outside IR35 Protection</strong>: Genuine B2B deliverables, clear SOWs, and right of substitution clauses.</li>
           </ul>
         </div>
       </div>

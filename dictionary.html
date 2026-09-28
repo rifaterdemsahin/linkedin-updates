@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & AGI Engineering Dictionary | LinkedIn OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.88);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 10% 15%, rgba(245, 158, 11, 0.08) 0px, transparent 40%),
+        radial-gradient(at 90% 85%, rgba(56, 189, 248, 0.08) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1.5rem 1.5rem 5rem;
+    }
+
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    /* Page Header */
+    .page-header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: var(--accent-amber);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Hero Deep Dive Card for SHAP & LIME */
+    .hero-spotlight {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: var(--radius);
+      padding: 2.25rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5);
+    }
+
+    .spotlight-tag {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent-amber);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+
+    .spotlight-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .spotlight-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Comparison Grid */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 850px) {
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+
+    .method-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .method-card.shap {
+      border-left: 4px solid var(--accent-blue);
+    }
+
+    .method-card.lime {
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    .method-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .formula-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      color: var(--accent-blue);
+    }
+
+    .bullet-list {
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .bullet-list li {
+      margin-bottom: 0.75rem;
+      position: relative;
+      padding-left: 1.4rem;
+      line-height: 1.5;
+    }
+
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent-amber);
+      font-weight: bold;
+    }
+
+    /* Comparison Table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+
+    .compare-table th, .compare-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .compare-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Enterprise & Adversarial Connection Box */
+    .enterprise-connection {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .connection-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Dictionary Terms Filter & Search */
+    .dict-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(18, 24, 38, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .dict-search {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      width: 280px;
+    }
+
+    .dict-search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.88rem;
+      width: 100%;
+    }
+
+    /* Dictionary Cards Grid */
+    .dict-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .term-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .term-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .term-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      gap: 0.5rem;
+    }
+
+    .term-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .term-category {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+
+    .cat-evals { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .cat-agent { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+    .cat-safety { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .cat-compute { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+
+    .term-def {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .term-impact {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+
+    .term-impact strong {
+      color: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Shared Navigation -->
+    <div id="shared-nav-container"></div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="header-left">
+        <span class="header-badge">📖 Enterprise Knowledge Base</span>
+        <h1>AI & AGI Engineering Dictionary</h1>
+        <p>Technical definitions, architectural principles, and mathematical underpinnings</p>
+      </div>
+      <div>
+        <a href="index.html" class="btn btn-secondary">
+          ← Back to Dashboard
+        </a>
+      </div>
+    </header>
+
+    <!-- Deep Dive Spotlight: SHAP & LIME -->
+    <div class="hero-spotlight">
+      <span class="spotlight-tag">⭐ Core Technical Moat from Erdem's CV</span>
+      <h2 class="spotlight-title">SHAP & LIME: Explainable AI (XAI) & Adversarial Defenses</h2>
+      <p class="spotlight-subtitle">
+        Directly grounded in your 2025 research project: <em>"Secure & Interpretable AI: Defending Models Against Adversarial Attacks (January 2025 – September 2025)"</em>.
+      </p>
+
+      <div class="compare-grid">
+        
+        <!-- SHAP Box -->
+        <div class="method-card shap">
+          <h3>
+            <span>SHAP (Shapley Additive exPlanations)</span>
+            <span class="formula-tag">&phi;<sub>i</sub>(v) &isin; &Ropf;</span>
+          </h3>
+          <ul class="bullet-list">
+            <li><strong>Theoretical Foundation</strong>: Rooted in <strong>Cooperative Game Theory</strong> (Lloyd Shapley, Nobel Prize 1953). It treats feature inputs as "players" in a coalition that collaborate to produce the model's payout (the prediction).</li>
+            <li><strong>Axiomatic Rigor</strong>: The only attribution method that simultaneously satisfies 4 mathematical guarantees:
+              <br>1. <em>Efficiency</em> (sum of attributions equals prediction difference).
+              <br>2. <em>Symmetry</em> (equal contributors receive equal Shapley values).
+              <br>3. <em>Dummy / Null Player</em> (features with zero contribution get zero score).
+              <br>4. <em>Additivity</em> (attributions can be combined across models).
+            </li>
+            <li><strong>Global & Local Interpretation</strong>: Can explain an individual instance (waterfall plot) as well as the entire dataset distribution (beeswarm plot).</li>
+            <li><strong>TreeSHAP & DeepSHAP</strong>: High-speed exact polynomial algorithms for decision trees and neural networks.</li>
+          </ul>
+        </div>
+
+        <!-- LIME Box -->
+        <div class="method-card lime">
+          <h3>
+            <span>LIME (Local Interpretable Model-agnostic)</span>
+            <span class="formula-tag">&xi;(x) = argmin &Lscr; + &Omega;</span>
+          </h3>
+          <ul class="bullet-list">
+            <li><strong>Core Mechanism</strong>: Operates by drawing random samples with tiny perturbations around a specific prediction instance, weighting them by proximity to the target data point.</li>
+            <li><strong>Local Surrogate Model</strong>: Trains an inherently transparent surrogate (e.g. sparse linear regression, decision tree) on the perturbed neighborhood to approximate the complex black-box model locally.</li>
+            <li><strong>100% Model Agnostic</strong>: Can interpret any arbitrary predictive architecture without needing internal gradients, weights, or architecture details.</li>
+            <li><strong>Modalities</strong>: Highly intuitive for tabular data, text token highlights, and image superpixel masks.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Comparison Matrix Table -->
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>SHAP (Shapley Values)</th>
+            <th>LIME (Local Surrogates)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Theoretical Guarantee</strong></td>
+            <td>Mathematically provable, consistent, and unique solution.</td>
+            <td>Heuristic approximation; sampling variance can yield slightly different results.</td>
+          </tr>
+          <tr>
+            <td><strong>Computational Cost</strong></td>
+            <td>Combinatorially expensive (O(2<sup>|F|</sup>)), but optimized by TreeSHAP.</td>
+            <td>Faster for single instances; depends on sample perturbation count.</td>
+          </tr>
+          <tr>
+            <td><strong>Scope of Explanation</strong></td>
+            <td>Both <strong>Global</strong> (overall feature importance) and <strong>Local</strong>.</td>
+            <td>Strictly <strong>Local</strong> (faithful only in the immediate neighborhood).</td>
+          </tr>
+          <tr>
+            <td><strong>Vulnerability to Adversarial Attacks</strong></td>
+            <td>Resistant to local fooling due to axiomatic fairness.</td>
+            <td>Can be fooled by adversarial data distributions outside the perturbation ball.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Enterprise Bridge: Why Clients Pay £1,500/day for SHAP/LIME in 2026 -->
+      <div class="enterprise-connection">
+        <div class="connection-title">
+          <span>🛡️ Why This Is Your Commercial Moat in 2026 Enterprise Contracting</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #e2e8f0; line-height: 1.5; margin-bottom: 0.6rem;">
+          Fortune 500 banks, insurance firms, and healthcare enterprises are terrified of deploying black-box AI and autonomous agents because of:
+        </p>
+        <ul class="bullet-list">
+          <li><strong>Adversarial Attack Defense (FGSM & PGD)</strong>: In your 2025 research, you utilized SHAP and LIME to pinpoint exactly which input features were manipulated by adversarial perturbations (Fast Gradient Sign Method / Projected Gradient Descent) to trigger misclassifications.</li>
+          <li><strong>Agent Explainability & Auditability</strong>: In multi-agent swarms, when an autonomous agent makes a financial transaction or code refactor, executives demand a deterministic audit trail proving <em>why</em> the decision was taken.</li>
+          <li><strong>EU AI Act & Regulatory Compliance</strong>: High-risk AI systems deployed in Europe and the UK legally mandate explainability and bias mitigation under FCA and EU AI Act Article 13. Your SHAP/LIME expertise gives enterprise buyers compliance immunity.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Technical Dictionary Glossary Section -->
+    <div class="dict-controls">
+      <div style="font-size: 1.15rem; font-weight: 700; color: #fff;">
+        📚 Frontier AGI & Systems Architecture Glossary
+      </div>
+      <div class="dict-search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="dict-input" placeholder="Search dictionary terms..." oninput="filterTerms(this.value)">
+      </div>
+    </div>
+
+    <div class="dict-grid" id="dict-cards-container">
+
+      <!-- Term: MCTS -->
+      <div class="term-card" data-term="MCTS Monte Carlo Tree Search Reasoning">
+        <div class="term-header">
+          <span class="term-name">Monte Carlo Tree Search (MCTS)</span>
+          <span class="term-category cat-compute">Reasoning</span>
+        </div>
+        <div class="term-def">
+          A heuristic search algorithm for decision processes that balances exploration and exploitation. In modern reasoning models (DeepSeek R1, OpenAI o1/o3), MCTS explores alternative reasoning branches, scoring intermediate thoughts with Process Reward Models (PRMs).
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> Enables autonomous agents to simulate and evaluate 50 code solutions before writing a single line to production.
+        </div>
+      </div>
+
+      <!-- Term: PRM vs ORM -->
+      <div class="term-card" data-term="PRM ORM Process Reward Model Outcome Reward Model">
+        <div class="term-header">
+          <span class="term-name">PRM vs. ORM</span>
+          <span class="term-category cat-evals">Evals</span>
+        </div>
+        <div class="term-def">
+          <strong>Process Reward Models (PRMs)</strong> score every intermediate step of a chain-of-thought, whereas <strong>Outcome Reward Models (ORMs)</strong> only evaluate the final answer. PRMs prevent "right answer, wrong reasoning" errors.
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> Drastically reduces agent hallucination rates during complex financial calculations or legal reasoning.
+        </div>
+      </div>
+
+      <!-- Term: Evals CI/CD -->
+      <div class="term-card" data-term="Evals CI/CD Evaluation Engineering DeepEval Ragas">
+        <div class="term-header">
+          <span class="term-name">Evals CI/CD</span>
+          <span class="term-category cat-evals">Evals</span>
+        </div>
+        <div class="term-def">
+          The practice of embedding probabilistic and deterministic evaluation test suites (DeepEval, Ragas, TruLens, custom LLM-as-a-judge) into automated GitHub Actions pull request pipelines to prevent prompt regression.
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> The #1 missing competency in enterprise AI; transforms experimental notebooks into ISO/SOC2-compliant pipelines.
+        </div>
+      </div>
+
+      <!-- Term: ReAct -->
+      <div class="term-card" data-term="ReAct Reasoning Acting Agentic Loop">
+        <div class="term-header">
+          <span class="term-name">ReAct Pattern</span>
+          <span class="term-category cat-agent">Agent Loop</span>
+        </div>
+        <div class="term-def">
+          Synergizing <strong>Reasoning and Acting</strong> in language models. The agent cycles through: Thought (reason about current state) &rarr; Action (call external API/tool) &rarr; Observation (evaluate output), repeating until the goal is achieved.
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> Core architectural pattern for enterprise workflow automation and tool execution.
+        </div>
+      </div>
+
+      <!-- Term: Adversarial Perturbation (FGSM / PGD) -->
+      <div class="term-card" data-term="FGSM PGD Adversarial Perturbations Attacks">
+        <div class="term-header">
+          <span class="term-name">FGSM & PGD Attacks</span>
+          <span class="term-category cat-safety">Safety</span>
+        </div>
+        <div class="term-def">
+          <strong>Fast Gradient Sign Method (FGSM)</strong> and <strong>Projected Gradient Descent (PGD)</strong> compute subtle, imperceptible gradient modifications to input data engineered to deliberately trick machine learning models into high-confidence false predictions.
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> Defense against model hijacking, automated biometric evasion, and synthetic prompt injection attacks.
+        </div>
+      </div>
+
+      <!-- Term: vLLM & PagedAttention -->
+      <div class="term-card" data-term="vLLM PagedAttention High Throughput Inference">
+        <div class="term-header">
+          <span class="term-name">vLLM & PagedAttention</span>
+          <span class="term-category cat-compute">Inference</span>
+        </div>
+        <div class="term-def">
+          A high-throughput LLM serving engine that manages KV-cache memory using virtual memory paging concepts (PagedAttention). Enables 2x to 4x higher concurrency on GPU clusters with near-zero memory fragmentation.
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> Slashes enterprise model hosting costs by 70% compared to unoptimized HuggingFace/PyTorch servers.
+        </div>
+      </div>
+
+      <!-- Term: DSPy -->
+      <div class="term-card" data-term="DSPy Declarative Prompting Optimization">
+        <div class="term-header">
+          <span class="term-name">DSPy</span>
+          <span class="term-category cat-agent">Framework</span>
+        </div>
+        <div class="term-def">
+          Stanford's framework for programming—rather than prompting—foundation models. It abstracts prompts into parameterized signatures and uses teleprompters/optimizers to compile and tune prompts mathematically against eval metrics.
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> Eliminates fragile manual prompt tinkering in favor of systematic algorithmic prompt compilation.
+        </div>
+      </div>
+
+      <!-- Term: NeMo Guardrails -->
+      <div class="term-card" data-term="NeMo Guardrails Guardrails AI Safety LLM Defense">
+        <div class="term-header">
+          <span class="term-name">NeMo Guardrails</span>
+          <span class="term-category cat-safety">Safety</span>
+        </div>
+        <div class="term-def">
+          An open-source toolkit by NVIDIA for creating programmable conversational guardrails around LLMs using Colang. It enforces topic boundaries, prevents off-track discussions, and detects prompt injection attempts before they reach the model.
+        </div>
+        <div class="term-impact">
+          <strong>Enterprise Value:</strong> Prevents PR disasters, legal liability, and unauthorized agent tool execution in customer-facing deployments.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    function filterTerms(query) {
+      const q = query.trim().toLowerCase();
+      const cards = document.querySelectorAll('.term-card');
+      cards.forEach(card => {
+        const text = card.getAttribute('data-term').toLowerCase() + ' ' + card.innerText.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

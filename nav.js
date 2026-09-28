@@ -16,6 +16,7 @@ function renderSharedNav() {
     { href: 'skills-gaps.html', label: '🧠 Skills Gaps', id: 'skills-gaps.html' },
     { href: 'todos.html', label: '✅ Todos', id: 'todos.html' },
     { href: 'playbook.html', label: '📖 Playbook', id: 'playbook.html' },
+    { href: 'dictionary.html', label: '📚 Dictionary', id: 'dictionary.html' },
   ];
 
   const linksHtml = links.map(link => {
@@ -67,6 +68,9 @@ function renderSharedNav() {
 
 // Search Index
 const searchableItems = [
+  { title: "SHAP (Shapley Additive exPlanations)", category: "Dictionary", url: "dictionary.html", desc: "Game theory based feature attribution. Efficiency, symmetry, additivity axioms." },
+  { title: "LIME (Local Interpretable Surrogates)", category: "Dictionary", url: "dictionary.html", desc: "Local surrogate model explanation using neighborhood data perturbations." },
+  { title: "AI & AGI Engineering Dictionary", category: "Dictionary", url: "dictionary.html", desc: "Technical glossary: MCTS, PRM vs ORM, Evals, ReAct, NeMo, vLLM." },
   { title: "Strategic Contracting Playbook", category: "Playbook", url: "playbook.html", desc: "4 Pillars to Land, Train, Adapt, Secure £1,500/day roles." },
   { title: "Pillar 1: LAND (Inbound & Outbound)", category: "Playbook", url: "playbook.html#land", desc: "Recruiter SEO, Open to Work configuration, CTO pitch." },
   { title: "Pillar 2: TRAIN (Frontier Mastery)", category: "Playbook", url: "playbook.html#train", desc: "Cognitive architectures, reasoning traces, automated evals." },

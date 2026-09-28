@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contracting & Transformation Todos | LinkedIn OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.88);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 20% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 40%),
+        radial-gradient(at 80% 90%, rgba(56, 189, 248, 0.08) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1.5rem 1.5rem 5rem;
+    }
+
+    .container { max-width: 1080px; margin: 0 auto; }
+
+    /* Page Header */
+    .page-header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: var(--accent-emerald);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Progress Bar Card */
+    .progress-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .progress-count {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #38bdf8);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(18, 24, 38, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cat-btn:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+    .cat-btn.active {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: var(--accent-emerald);
+    }
+
+    /* Add Todo Box */
+    .add-todo-wrapper {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .add-todo-input {
+      flex-grow: 1;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .add-todo-input:focus { border-color: var(--accent-emerald); }
+
+    .btn-add {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    .btn-add:hover { transform: translateY(-1px); }
+
+    /* Todo List */
+    .todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      gap: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .todo-item:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .todo-item.completed {
+      opacity: 0.6;
+      background: rgba(18, 24, 38, 0.5);
+    }
+
+    .todo-item.completed .todo-text {
+      text-decoration: line-through;
+      color: #64748b;
+    }
+
+    .todo-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-grow: 1;
+    }
+
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+      background: transparent;
+    }
+
+    .todo-item.completed .custom-checkbox {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+      color: #000;
+    }
+
+    .todo-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .todo-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .badge-cat {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-priority {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+
+    .p-high { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+    .p-med { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .p-low { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+
+    .btn-delete-todo {
+      background: transparent;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .btn-delete-todo:hover { color: var(--accent-rose); }
+
+    .reset-box {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .btn-reset {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-reset:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Shared Navigation -->
+    <div id="shared-nav-container"></div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="header-left">
+        <span class="header-badge">📋 Actionable Transformation OS</span>
+        <h1>Contracting & Profile Transformation Todos</h1>
+        <p>Interactive tracking board for Rifat Erdem Sahin &bull; Persists locally in your browser</p>
+      </div>
+      <div>
+        <a href="index.html" class="btn btn-secondary">
+          ← Back to Dashboard
+        </a>
+      </div>
+    </header>
+
+    <!-- Progress Card -->
+    <div class="progress-card">
+      <div class="progress-header">
+        <span class="progress-title">Overall Execution Progress</span>
+        <span class="progress-count" id="progress-text">0 / 0 Completed (0%)</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progress-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Add Custom Todo Input -->
+    <div class="add-todo-wrapper">
+      <input type="text" id="new-todo-text" class="add-todo-input" placeholder="Add custom contracting or profile task..." onkeydown="if(event.key==='Enter') addTodo()">
+      <button class="btn-add" onclick="addTodo()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        Add Task
+      </button>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="controls-bar">
+      <div class="category-tabs">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">All Tasks</button>
+        <button class="cat-btn" onclick="filterCategory('profile', this)">Profile Updates</button>
+        <button class="cat-btn" onclick="filterCategory('skills', this)">Skills Bridge</button>
+        <button class="cat-btn" onclick="filterCategory('inbound', this)">Inbound & Outreach</button>
+        <button class="cat-btn" onclick="filterCategory('contracting', this)">Commercials & SOW</button>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="cat-btn" id="filter-active-btn" onclick="toggleStatusFilter('active')">Active</button>
+        <button class="cat-btn" id="filter-completed-btn" onclick="toggleStatusFilter('completed')">Completed</button>
+      </div>
+    </div>
+
+    <!-- Todo List Items -->
+    <div class="todo-list" id="todo-list-container">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <div class="reset-box">
+      <button class="btn-reset" onclick="resetDefaultTodos()">Reset to Default Strategy Tasks</button>
+    </div>
+
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    const DEFAULT_TODOS = [
+      { id: 1, text: "Update LinkedIn headline to 'AGI Researcher & Agentic Systems Architect'", category: "profile", priority: "high", completed: true },
+      { id: 2, text: "Update full name to 'Erdem (Rifat) Sahin' on LinkedIn", category: "profile", priority: "high", completed: true },
+      { id: 3, text: "Update location to 'Cambridge, England, United Kingdom'", category: "profile", priority: "high", completed: true },
+      { id: 4, text: "Upload DeliveryPilot AGI banner (linkedin_banner_28_September_2026.jpeg)", category: "profile", priority: "high", completed: true },
+      { id: 5, text: "Unpin 'Codespaces' from top 3 LinkedIn skills (Remove wasted keyword)", category: "profile", priority: "high", completed: false },
+      { id: 6, text: "Pin 'Artificial General Intelligence (AGI)' & 'Autonomous Agents' in Top Skills", category: "profile", priority: "high", completed: false },
+      { id: 7, text: "Replace casual About section with executive authority copy (15+ yrs + Evals)", category: "profile", priority: "high", completed: false },
+      { id: 8, text: "Publish transition announcement post on LinkedIn to engage 10k+ network", category: "inbound", priority: "high", completed: false },
+      { id: 9, text: "Build open-source PoC: Tree-of-Thoughts / MCTS code synthesis reasoning traces", category: "skills", priority: "high", completed: false },
+      { id: 10, text: "Create automated GitHub Actions Evals CI/CD demo (DeepEval / Ragas pass/fail gates)", category: "skills", priority: "high", completed: false },
+      { id: 11, text: "Set LinkedIn 'Open to Work' to Recruiters Only for AGI Researcher & Fractional Head of AI", category: "inbound", priority: "high", completed: false },
+      { id: 12, text: "Prepare 3-Point Agent Failure Mode outbound pitch for Series A-C CTOs", category: "inbound", priority: "med", completed: false },
+      { id: 13, text: "Package 2-Week Architecture Discovery Sprint SOW (£5,000–£10,000 fixed fee)", category: "contracting", priority: "high", completed: false },
+      { id: 14, text: "Set up Outside-IR35 contract terms with clear right-of-substitution clause", category: "contracting", priority: "high", completed: false },
+      { id: 15, text: "Publish first bi-weekly architectural teardown post (Claude 3.7 vs DeepSeek R1)", category: "inbound", priority: "med", completed: false }
+    ];
+
+    let todos = [];
+    let currentCategory = 'all';
+    let statusFilter = 'all'; // 'all', 'active', 'completed'
+
+    function loadTodos() {
+      const saved = localStorage.getItem('linkedin_os_todos');
+      if (saved) {
+        try {
+          todos = JSON.parse(saved);
+        } catch (e) {
+          todos = [...DEFAULT_TODOS];
+        }
+      } else {
+        todos = [...DEFAULT_TODOS];
+      }
+      renderTodos();
+    }
+
+    function saveTodos() {
+      localStorage.setItem('linkedin_os_todos', JSON.stringify(todos));
+      renderTodos();
+    }
+
+    function toggleTodo(id) {
+      const item = todos.find(t => t.id === id);
+      if (item) {
+        item.completed = !item.completed;
+        saveTodos();
+      }
+    }
+
+    function deleteTodo(id) {
+      todos = todos.filter(t => t.id !== id);
+      saveTodos();
+    }
+
+    function addTodo() {
+      const input = document.getElementById('new-todo-text');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const newId = Date.now();
+      todos.unshift({
+        id: newId,
+        text: text,
+        category: currentCategory === 'all' ? 'profile' : currentCategory,
+        priority: 'high',
+        completed: false
+      });
+
+      input.value = '';
+      saveTodos();
+    }
+
+    function resetDefaultTodos() {
+      if (confirm('Reset todos to the default recommended strategy checklist?')) {
+        todos = [...DEFAULT_TODOS];
+        saveTodos();
+      }
+    }
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        if (!b.id) b.classList.remove('active');
+      });
+      if (btn) btn.classList.add('active');
+      renderTodos();
+    }
+
+    function toggleStatusFilter(status) {
+      const activeBtn = document.getElementById('filter-active-btn');
+      const completedBtn = document.getElementById('filter-completed-btn');
+
+      if (statusFilter === status) {
+        statusFilter = 'all';
+        activeBtn.classList.remove('active');
+        completedBtn.classList.remove('active');
+      } else {
+        statusFilter = status;
+        activeBtn.classList.toggle('active', status === 'active');
+        completedBtn.classList.toggle('active', status === 'completed');
+      }
+      renderTodos();
+    }
+
+    function renderTodos() {
+      const container = document.getElementById('todo-list-container');
+      if (!container) return;
+
+      // Filter
+      let filtered = todos.filter(t => {
+        const matchesCat = (currentCategory === 'all' || t.category === currentCategory);
+        let matchesStatus = true;
+        if (statusFilter === 'active') matchesStatus = !t.completed;
+        if (statusFilter === 'completed') matchesStatus = t.completed;
+        return matchesCat && matchesStatus;
+      });
+
+      // Update progress bar
+      const total = todos.length;
+      const completedCount = todos.filter(t => t.completed).length;
+      const pct = total === 0 ? 0 : Math.round((completedCount / total) * 100);
+
+      document.getElementById('progress-text').innerText = `${completedCount} / ${total} Completed (${pct}%)`;
+      document.getElementById('progress-fill').style.width = `${pct}%`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 2rem; color: #64748b;">No tasks found for this filter.</div>`;
+        return;
+      }
+
+      const catBadges = {
+        profile: { label: "Profile", color: "rgba(56, 189, 248, 0.15)", text: "#38bdf8" },
+        skills: { label: "Skills", color: "rgba(168, 85, 247, 0.15)", text: "#a855f7" },
+        inbound: { label: "Outreach", color: "rgba(245, 158, 11, 0.15)", text: "#f59e0b" },
+        contracting: { label: "Contracting", color: "rgba(16, 185, 129, 0.15)", text: "#10b981" }
+      };
+
+      container.innerHTML = filtered.map(t => {
+        const catInfo = catBadges[t.category] || { label: t.category, color: "rgba(255,255,255,0.1)", text: "#fff" };
+        const priorityClass = t.priority === 'high' ? 'p-high' : (t.priority === 'med' ? 'p-med' : 'p-low');
+
+        return `
+          <div class="todo-item ${t.completed ? 'completed' : ''}">
+            <div class="todo-left" onclick="toggleTodo(${t.id})" style="cursor: pointer;">
+              <div class="custom-checkbox">
+                ${t.completed ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>' : ''}
+              </div>
+              <span class="todo-text">${escapeHtml(t.text)}</span>
+            </div>
+            <div class="todo-right">
+              <span class="badge-cat" style="background: ${catInfo.color}; color: ${catInfo.text};">${catInfo.label}</span>
+              <span class="badge-priority ${priorityClass}">${t.priority}</span>
+              <button class="btn-delete-todo" onclick="deleteTodo(${t.id})" title="Delete task">&times;</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[m]);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadTodos);
+  </script>
+</body>
+</html>

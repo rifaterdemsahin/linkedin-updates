@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exported Profiles & Scoring Engine | LinkedIn OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.88);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.08) 0px, transparent 40%),
+        radial-gradient(at 90% 80%, rgba(168, 85, 247, 0.08) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1.5rem 1.5rem 5rem;
+    }
+
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    /* Page Header */
+    .page-header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent-blue);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Filter Controls */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(18, 24, 38, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .filter-tab.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.3);
+      color: var(--accent-blue);
+    }
+
+    .search-filter-input {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      width: 260px;
+    }
+
+    .search-filter-input input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.88rem;
+      width: 100%;
+    }
+
+    /* Profile Cards Grid */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .profile-card.target-candidate {
+      border-left: 4px solid var(--accent-emerald);
+    }
+
+    .profile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .profile-info h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .profile-title {
+      font-size: 0.88rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    .profile-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Score Badge */
+    .score-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 65px;
+      height: 65px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      flex-shrink: 0;
+    }
+
+    .score-badge.grade-a {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: var(--accent-emerald);
+    }
+
+    .score-badge.grade-b {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: var(--accent-blue);
+    }
+
+    .score-badge.grade-c {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: var(--accent-amber);
+    }
+
+    .score-num {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
+
+    /* Score Breakdown Bars */
+    .breakdown-box {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .breakdown-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      font-size: 0.8rem;
+    }
+    .breakdown-row:last-child { margin-bottom: 0; }
+
+    .breakdown-name {
+      color: var(--text-muted);
+      width: 48%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bar-wrapper {
+      width: 40%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+    }
+
+    .breakdown-val {
+      font-weight: 700;
+      color: #fff;
+      width: 12%;
+      text-align: right;
+    }
+
+    /* Strengths & Gaps */
+    .analysis-section {
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .analysis-section strong {
+      display: block;
+      color: #fff;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+
+    .strength-text { color: #a7f3d0; margin-bottom: 0.6rem; }
+    .gap-text { color: #fecdd3; }
+
+    /* Card Actions */
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .tag-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-download:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Scoring Methodology Box */
+    .methodology-card {
+      background: rgba(18, 24, 38, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .method-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .method-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .method-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Shared Navigation -->
+    <div id="shared-nav-container"></div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="header-left">
+        <span class="header-badge">⚖️ Algorithmic Candidate Scoring</span>
+        <h1>Exported Profiles & Benchmark Scores</h1>
+        <p>Scored against the 2026 Enterprise Contracting Standard (£1,000–£1,800/day)</p>
+      </div>
+    </header>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterCategory('all', this)">All Profiles (5)</button>
+        <button class="filter-tab" onclick="filterCategory('target', this)">Target Persona (1)</button>
+        <button class="filter-tab" onclick="filterCategory('variant', this)">CV Variants (2)</button>
+        <button class="filter-tab" onclick="filterCategory('legacy', this)">Legacy Baseline (1)</button>
+        <button class="filter-tab" onclick="filterCategory('benchmark', this)">Influencer Benchmarks (1)</button>
+      </div>
+
+      <div class="search-filter-input">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="profile-filter-input" placeholder="Filter profiles..." oninput="handleProfileSearch(this.value)">
+      </div>
+    </div>
+
+    <!-- Profiles Cards Grid -->
+    <div class="profiles-grid" id="profiles-container">
+
+      <!-- Profile 1: Current Target -->
+      <div class="profile-card target-candidate" data-category="target" data-name="Erdem (Rifat) Sahin AGI Researcher Agentic Systems Architect">
+        <div class="profile-top">
+          <div class="profile-info">
+            <h3>Erdem (Rifat) Sahin</h3>
+            <div class="profile-title">AGI Researcher & Agentic Systems Architect</div>
+            <div class="profile-meta">Cambridge, England, UK &bull; DeliveryPilot</div>
+          </div>
+          <div class="score-badge grade-a">
+            <span class="score-num">92</span>
+            <span class="score-label">Grade A+</span>
+          </div>
+        </div>
+
+        <div class="breakdown-box">
+          <div class="breakdown-row">
+            <span class="breakdown-name">AGI & Frontier Tech</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 94%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">94</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Contracting Commercials</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 95%; background: var(--accent-blue);"></div></div>
+            <span class="breakdown-val">95</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Inbound Recruiter SEO</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 91%; background: var(--accent-purple);"></div></div>
+            <span class="breakdown-val">91</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Evals & Guardrails</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 90%; background: var(--accent-amber);"></div></div>
+            <span class="breakdown-val">90</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Enterprise Pedigree</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 96%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">96</span>
+          </div>
+        </div>
+
+        <div class="analysis-section">
+          <strong>Key Strengths</strong>
+          <p class="strength-text">✓ Goldman Sachs + Microsoft pedigree + Adversarial ML (SHAP/LIME) + Live AGI Researcher title.</p>
+          <strong>Actionable Gap</strong>
+          <p class="gap-text">⚠️ Unpin "Codespaces" from top 3 skills; replace with Evals & Autonomous Agents.</p>
+        </div>
+
+        <div class="card-footer">
+          <span class="tag-category" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);">Target Profile</span>
+          <a href="exports/linkedin_profle_28_september_2026.pdf" target="_blank" class="btn-download">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export PDF (29p)
+          </a>
+        </div>
+      </div>
+
+      <!-- Profile 2: AI Security Variant -->
+      <div class="profile-card" data-category="variant" data-name="Erdem Sahin AI Security Adversarial Engineer">
+        <div class="profile-top">
+          <div class="profile-info">
+            <h3>Erdem Sahin (Security CV)</h3>
+            <div class="profile-title">AI Security & Adversarial Defenses Architect</div>
+            <div class="profile-meta">London / Cambridge &bull; Contract</div>
+          </div>
+          <div class="score-badge grade-a">
+            <span class="score-num">87</span>
+            <span class="score-label">Grade A-</span>
+          </div>
+        </div>
+
+        <div class="breakdown-box">
+          <div class="breakdown-row">
+            <span class="breakdown-name">AGI & Frontier Tech</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 84%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">84</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Contracting Commercials</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 85%; background: var(--accent-blue);"></div></div>
+            <span class="breakdown-val">85</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Inbound Recruiter SEO</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 82%; background: var(--accent-purple);"></div></div>
+            <span class="breakdown-val">82</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Evals & Guardrails</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 98%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">98</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Enterprise Pedigree</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 90%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">90</span>
+          </div>
+        </div>
+
+        <div class="analysis-section">
+          <strong>Key Strengths</strong>
+          <p class="strength-text">✓ Perfect 98/100 score on Evals & Guardrails. Massive moat for regulated banking/fintech clients.</p>
+          <strong>Actionable Gap</strong>
+          <p class="gap-text">⚠️ Emphasize business automation and multi-agent systems alongside security.</p>
+        </div>
+
+        <div class="card-footer">
+          <span class="tag-category" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-blue);">CV Variant</span>
+          <a href="exports/cv_ai_security_engineer.pdf" target="_blank" class="btn-download">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export PDF
+          </a>
+        </div>
+      </div>
+
+      <!-- Profile 3: Solutions Architect Variant -->
+      <div class="profile-card" data-category="variant" data-name="Erdem Sahin AI Solutions Architect">
+        <div class="profile-top">
+          <div class="profile-info">
+            <h3>Erdem Sahin (Solutions CV)</h3>
+            <div class="profile-title">Enterprise AI Solutions Architect</div>
+            <div class="profile-meta">United Kingdom &bull; Outside IR35</div>
+          </div>
+          <div class="score-badge grade-b">
+            <span class="score-num">84</span>
+            <span class="score-label">Grade B+</span>
+          </div>
+        </div>
+
+        <div class="breakdown-box">
+          <div class="breakdown-row">
+            <span class="breakdown-name">AGI & Frontier Tech</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 82%; background: var(--accent-blue);"></div></div>
+            <span class="breakdown-val">82</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Contracting Commercials</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 88%; background: var(--accent-blue);"></div></div>
+            <span class="breakdown-val">88</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Inbound Recruiter SEO</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 86%; background: var(--accent-purple);"></div></div>
+            <span class="breakdown-val">86</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Evals & Guardrails</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 78%; background: var(--accent-amber);"></div></div>
+            <span class="breakdown-val">78</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Enterprise Pedigree</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 94%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">94</span>
+          </div>
+        </div>
+
+        <div class="analysis-section">
+          <strong>Key Strengths</strong>
+          <p class="strength-text">✓ High enterprise trust and clear cloud architecture pedigree (Azure, AWS, Kubernetes).</p>
+          <strong>Actionable Gap</strong>
+          <p class="gap-text">⚠️ Needs higher emphasis on autonomous reasoning agents and test-time compute.</p>
+        </div>
+
+        <div class="card-footer">
+          <span class="tag-category" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-blue);">CV Variant</span>
+          <a href="exports/cv_ai_solutions_architect.pdf" target="_blank" class="btn-download">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export PDF
+          </a>
+        </div>
+      </div>
+
+      <!-- Profile 4: Legacy Claude Architect Baseline -->
+      <div class="profile-card" data-category="legacy" data-name="Erdem Sahin Claude Certified Architect Baseline">
+        <div class="profile-top">
+          <div class="profile-info">
+            <h3>Erdem Sahin (Baseline)</h3>
+            <div class="profile-title">Claude Certified Architect Professional</div>
+            <div class="profile-meta">Greater Cambridge Area &bull; Freelance</div>
+          </div>
+          <div class="score-badge grade-c">
+            <span class="score-num">68</span>
+            <span class="score-label">Grade C+</span>
+          </div>
+        </div>
+
+        <div class="breakdown-box">
+          <div class="breakdown-row">
+            <span class="breakdown-name">AGI & Frontier Tech</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 65%; background: var(--accent-rose);"></div></div>
+            <span class="breakdown-val">65</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Contracting Commercials</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 75%; background: var(--accent-amber);"></div></div>
+            <span class="breakdown-val">75</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Inbound Recruiter SEO</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 58%; background: var(--accent-rose);"></div></div>
+            <span class="breakdown-val">58</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Evals & Guardrails</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 70%; background: var(--accent-amber);"></div></div>
+            <span class="breakdown-val">70</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Enterprise Pedigree</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 92%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">92</span>
+          </div>
+        </div>
+
+        <div class="analysis-section">
+          <strong>Key Strengths</strong>
+          <p class="strength-text">✓ High technical credibility on Anthropic Claude ecosystem.</p>
+          <strong>Actionable Gap</strong>
+          <p class="gap-text">⚠️ Boxed in as a single-vendor tool admin. Codespaces wastes top 3 skills slot.</p>
+        </div>
+
+        <div class="card-footer">
+          <span class="tag-category" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-amber);">Legacy Baseline</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Replaced by Update #003</span>
+        </div>
+      </div>
+
+      <!-- Profile 5: Benchmark Influencer -->
+      <div class="profile-card" data-category="benchmark" data-name="Naresh Harwani Influencer Profile Benchmark">
+        <div class="profile-top">
+          <div class="profile-info">
+            <h3>Naresh Harwani (Benchmark)</h3>
+            <div class="profile-title">AI Influencer & Community Leader</div>
+            <div class="profile-meta">Global &bull; 100k+ Followers</div>
+          </div>
+          <div class="score-badge grade-b">
+            <span class="score-num">76</span>
+            <span class="score-label">Grade B</span>
+          </div>
+        </div>
+
+        <div class="breakdown-box">
+          <div class="breakdown-row">
+            <span class="breakdown-name">AGI & Frontier Tech</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 70%; background: var(--accent-amber);"></div></div>
+            <span class="breakdown-val">70</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Contracting Commercials</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 72%; background: var(--accent-amber);"></div></div>
+            <span class="breakdown-val">72</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Inbound Recruiter SEO</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 94%; background: var(--accent-emerald);"></div></div>
+            <span class="breakdown-val">94</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Evals & Guardrails</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 60%; background: var(--accent-rose);"></div></div>
+            <span class="breakdown-val">60</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-name">Enterprise Pedigree</span>
+            <div class="bar-wrapper"><div class="bar-fill" style="width: 80%; background: var(--accent-blue);"></div></div>
+            <span class="breakdown-val">80</span>
+          </div>
+        </div>
+
+        <div class="analysis-section">
+          <strong>Key Strengths</strong>
+          <p class="strength-text">✓ World-class social proof, high engagement volume, excellent inbound SEO visibility.</p>
+          <strong>Actionable Gap</strong>
+          <p class="gap-text">⚠️ More content-focused than hands-on systems architecture or bank-grade security contracts.</p>
+        </div>
+
+        <div class="card-footer">
+          <span class="tag-category" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Audience Benchmark</span>
+          <a href="exports/naresh-harwani-influencer-profile.pdf" target="_blank" class="btn-download">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export PDF
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scoring Methodology -->
+    <div class="methodology-card">
+      <div class="card-title">
+        <span>How Profile Scores Are Calculated (2026 Contracting Standard)</span>
+        <span class="tag tag-blue">5 Dimensions</span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">
+        Each exported CV and LinkedIn profile is evaluated across 5 core criteria weighted for £1,000–£1,800/day enterprise contracting viability:
+      </p>
+
+      <div class="methodology-grid">
+        <div class="method-item">
+          <div class="method-title"><span>🧠</span> AGI & Frontier Systems (25%)</div>
+          <div class="method-desc">Mastery of reasoning traces, autonomous cognitive loops (Tree of Thoughts, MCTS), and multi-agent coordination.</div>
+        </div>
+        <div class="method-item">
+          <div class="method-title"><span>💼</span> Contracting Commercials (25%)</div>
+          <div class="method-desc">Clear outside-IR35 packaging, milestone-based SOW framing, and delivery vehicle credibility (DeliveryPilot).</div>
+        </div>
+        <div class="method-item">
+          <div class="method-title"><span>🔍</span> Inbound Recruiter SEO (20%)</div>
+          <div class="method-desc">Exact match title tags, high-density keywords, location precision (Cambridge, UK), and elimination of trivial skills.</div>
+        </div>
+        <div class="method-item">
+          <div class="method-title"><span>🛡️</span> Evals & Guardrails (15%)</div>
+          <div class="method-desc">Quantitative evaluation harnesses (DeepEval, Ragas) and adversarial AI safety (SHAP, LIME, prompt injection defense).</div>
+        </div>
+        <div class="method-item">
+          <div class="method-title"><span>🏛️</span> Enterprise Pedigree (15%)</div>
+          <div class="method-desc">Track record of delivering mission-critical infrastructure for Tier-1 institutions (Goldman Sachs, Microsoft, Accenture).</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.profile-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function handleProfileSearch(query) {
+      const q = query.trim().toLowerCase();
+      const cards = document.querySelectorAll('.profile-card');
+      cards.forEach(card => {
+        const name = (card.getAttribute('data-name') || '').toLowerCase();
+        const text = card.innerText.toLowerCase();
+        if (name.includes(q) || text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

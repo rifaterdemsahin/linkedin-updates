@@ -15,7 +15,7 @@ function renderSharedNav() {
     { href: 'profiles.html', label: '👥 Profiles & Scores', id: 'profiles.html' },
     { href: 'skills-gaps.html', label: '🧠 Skills Gaps', id: 'skills-gaps.html' },
     { href: 'todos.html', label: '✅ Todos', id: 'todos.html' },
-    { href: 'CONTRACTING_PLAYBOOK.md', label: '📖 Playbook', id: 'playbook', target: '_blank' },
+    { href: 'playbook.html', label: '📖 Playbook', id: 'playbook.html' },
   ];
 
   const linksHtml = links.map(link => {
@@ -67,6 +67,11 @@ function renderSharedNav() {
 
 // Search Index
 const searchableItems = [
+  { title: "Strategic Contracting Playbook", category: "Playbook", url: "playbook.html", desc: "4 Pillars to Land, Train, Adapt, Secure £1,500/day roles." },
+  { title: "Pillar 1: LAND (Inbound & Outbound)", category: "Playbook", url: "playbook.html#land", desc: "Recruiter SEO, Open to Work configuration, CTO pitch." },
+  { title: "Pillar 2: TRAIN (Frontier Mastery)", category: "Playbook", url: "playbook.html#train", desc: "Cognitive architectures, reasoning traces, automated evals." },
+  { title: "Pillar 3: ADAPT (Enterprise ROI)", category: "Playbook", url: "playbook.html#adapt", desc: "Smallest viable agent, deterministic wrappers, business translation." },
+  { title: "Pillar 4: SECURE (Commercials & Retainers)", category: "Playbook", url: "playbook.html#secure", desc: "Discovery sprint (£5k-£10k), fractional retainers, Outside IR35." },
   { title: "Erdem (Rifat) Sahin - AGI Researcher (Live)", category: "Profile", url: "profiles.html", desc: "Score 92/100. Target profile, Cambridge UK, DeliveryPilot." },
   { title: "Claude Certified Architect (Legacy)", category: "Profile", url: "profiles.html", desc: "Score 68/100. Previous export with vendor tool framing." },
   { title: "AI Security & Adversarial Engineer", category: "CV Variant", url: "profiles.html", desc: "Score 87/100. SHAP, LIME, FGSM defenses, PyTorch." },

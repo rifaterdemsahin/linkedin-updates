@@ -13,6 +13,7 @@
 | View | Description | Live URL |
 | :--- | :--- | :--- |
 | 📊 **Main Dashboard** | Live profile diffs, 1-click copy buttons, headline options, and banner review | [https://rifaterdemsahin.github.io/linkedin-updates/](https://rifaterdemsahin.github.io/linkedin-updates/) |
+| 📘 **Contracting Playbook** | Complete 4-pillar execution manual (Land, Train, Adapt, Secure) with copyable scripts | [https://rifaterdemsahin.github.io/linkedin-updates/playbook.html](https://rifaterdemsahin.github.io/linkedin-updates/playbook.html) |
 | 👥 **Scored Profiles** | 5-dimension algorithmic scoring engine evaluating exported CVs & benchmark profiles | [https://rifaterdemsahin.github.io/linkedin-updates/profiles.html](https://rifaterdemsahin.github.io/linkedin-updates/profiles.html) |
 | 🧠 **2026 Skills Gaps** | Forensic audit across reasoning tokens, Evals CI/CD, multi-agent swarms, and vLLM | [https://rifaterdemsahin.github.io/linkedin-updates/skills-gaps.html](https://rifaterdemsahin.github.io/linkedin-updates/skills-gaps.html) |
 | ✅ **Interactive Todos** | Browser-persisted (`localStorage`) transformation task board with progress bar | [https://rifaterdemsahin.github.io/linkedin-updates/todos.html](https://rifaterdemsahin.github.io/linkedin-updates/todos.html) |
@@ -97,12 +98,13 @@ Profiles and CV variants are scored out of 100 across 5 weighted contracting cri
 │   ├── cv_ai_solutions_architect.pdf
 │   └── naresh-harwani-influencer-profile.pdf
 ├── index.html                 # 📊 Main Dashboard & Update Manager
+├── playbook.html              # 📘 Strategic Contracting Playbook (Interactive HTML)
 ├── profiles.html              # 👥 Scored Profiles & Benchmark Engine
 ├── skills-gaps.html           # 🧠 2026 AI Skills Gap Matrix & Bridge Strategy
 ├── todos.html                 # ✅ Interactive Task Management Board
 ├── nav.js                     # 🌐 Shared Navigation & Global Search (Ctrl+K)
 ├── nav.css                    # 🎨 Shared Navigation & Modal Styling
-├── CONTRACTING_PLAYBOOK.md    # 📘 Complete Land, Train, Adapt, Secure Manual
+├── CONTRACTING_PLAYBOOK.md    # 📘 Markdown Playbook Source
 ├── CV_ANALYSIS.md             # 🔍 Forensic 29-page CV Audit Document
 ├── UPDATES.md                 # 📝 Profile Revision Changelog
 └── README.md                  # 📖 Project Overview & Live Links
@@ -119,7 +121,7 @@ Run the local web server on port **30083** (or any 30k+ port):
 python3 -m http.server 30083
 
 # Open directly in Google Chrome
-open -a "Google Chrome" http://localhost:30083
+open -a "Google Chrome" http://localhost:30083/playbook.html
 ```
 
 ---
@@ -127,6 +129,7 @@ open -a "Google Chrome" http://localhost:30083
 ## 🔗 Quick Links
 
 - 🌐 **Live GitHub Pages App**: [https://rifaterdemsahin.github.io/linkedin-updates/](https://rifaterdemsahin.github.io/linkedin-updates/)
+- 📘 **Contracting Playbook**: [https://rifaterdemsahin.github.io/linkedin-updates/playbook.html](https://rifaterdemsahin.github.io/linkedin-updates/playbook.html)
 - 👥 **Exported Profiles**: [https://rifaterdemsahin.github.io/linkedin-updates/profiles.html](https://rifaterdemsahin.github.io/linkedin-updates/profiles.html)
 - 🧠 **Skills Gaps**: [https://rifaterdemsahin.github.io/linkedin-updates/skills-gaps.html](https://rifaterdemsahin.github.io/linkedin-updates/skills-gaps.html)
 - ✅ **Todos Board**: [https://rifaterdemsahin.github.io/linkedin-updates/todos.html](https://rifaterdemsahin.github.io/linkedin-updates/todos.html)

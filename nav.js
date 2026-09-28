@@ -12,6 +12,7 @@ function renderSharedNav() {
 
   const links = [
     { href: 'index.html', label: '📊 Dashboard', id: 'index.html' },
+    { href: 'skills-order.html', label: '🎯 Skills Order', id: 'skills-order.html' },
     { href: 'profiles.html', label: '👥 Profiles & Scores', id: 'profiles.html' },
     { href: 'skills-gaps.html', label: '🧠 Skills Gaps', id: 'skills-gaps.html' },
     { href: 'todos.html', label: '✅ Todos', id: 'todos.html' },
@@ -68,6 +69,9 @@ function renderSharedNav() {
 
 // Search Index
 const searchableItems = [
+  { title: "Skills Master Order: Removes & Adds", category: "Skills Order", url: "skills-order.html", desc: "Top 3 pinned skills, skills to remove (Codespaces), and master 1-20 ranking." },
+  { title: "Top 3 Pinned Skills (AGI, Agents, LLM)", category: "Skills Order", url: "skills-order.html", desc: "Prime algorithmic real estate for recruiter search boolean strings." },
+  { title: "Skills to Remove (Codespaces, Atom, Nano)", category: "Skills Order", url: "skills-order.html", desc: "Eliminate legacy and trivial editor tools dragging down architect rates." },
   { title: "SHAP (Shapley Additive exPlanations)", category: "Dictionary", url: "dictionary.html", desc: "Game theory based feature attribution. Efficiency, symmetry, additivity axioms." },
   { title: "LIME (Local Interpretable Surrogates)", category: "Dictionary", url: "dictionary.html", desc: "Local surrogate model explanation using neighborhood data perturbations." },
   { title: "AI & AGI Engineering Dictionary", category: "Dictionary", url: "dictionary.html", desc: "Technical glossary: MCTS, PRM vs ORM, Evals, ReAct, NeMo, vLLM." },

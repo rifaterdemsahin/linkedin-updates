@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Skills Master Order & Optimization | LinkedIn OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nav.css">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.88);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.08) 0px, transparent 40%),
+        radial-gradient(at 90% 80%, rgba(16, 185, 129, 0.08) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 1.5rem 1.5rem 5rem;
+    }
+
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    /* Page Header */
+    .page-header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent-blue);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+
+    @media (max-width: 950px) {
+      .col-8, .col-6, .col-4 { grid-column: span 12; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+    .tag-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .tag-purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+
+    /* Top 3 Pinned Hero Showcase */
+    .hero-pinned {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.85));
+      border: 2px solid rgba(16, 185, 129, 0.35);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-pinned-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-pinned-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pinned-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 800px) {
+      .pinned-grid { grid-template-columns: 1fr; }
+    }
+
+    .pinned-box {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 1.25rem;
+      position: relative;
+    }
+
+    .pinned-rank {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--accent-emerald);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+
+    .pinned-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .pinned-why {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+
+    /* Action Table Rows */
+    .skill-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-bottom: 0.6rem;
+      transition: all 0.15s ease;
+    }
+
+    .skill-action-row:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .skill-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-grow: 1;
+    }
+
+    .skill-rank-badge {
+      min-width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .skill-rank-badge.top3 {
+      background: var(--accent-emerald);
+      color: #000;
+    }
+
+    .skill-rank-badge.top8 {
+      background: var(--accent-blue);
+      color: #000;
+    }
+
+    .skill-text-block strong {
+      display: block;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    .skill-text-block span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Copy Button */
+    .btn-copy-skill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-copy-skill:hover {
+      background: var(--accent-blue);
+      color: #000;
+    }
+
+    /* Remove Box */
+    .remove-box {
+      border-left: 4px solid var(--accent-rose);
+      background: rgba(244, 63, 94, 0.04);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(244, 63, 94, 0.15);
+      border-right: 1px solid rgba(244, 63, 94, 0.15);
+      border-bottom: 1px solid rgba(244, 63, 94, 0.15);
+    }
+
+    .remove-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .remove-reason {
+      font-size: 0.82rem;
+      color: #fca5a5;
+      margin-top: 0.15rem;
+    }
+
+    /* Toast */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #10b981;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px 20px;
+      position: fixed;
+      z-index: 9999;
+      bottom: 30px;
+      right: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+    #toast.show {
+      visibility: visible;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Shared Navigation -->
+    <div id="shared-nav-container"></div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="header-left">
+        <span class="header-badge">🎯 LinkedIn Algorithm SEO</span>
+        <h1>Skills Master Order: Removes, Adds & Exact Priority</h1>
+        <p>Target Profile: <strong>Erdem (Rifat) Sahin</strong> &bull; Optimizing Recruiter Boolean Search Filters for £1,500/day Roles</p>
+      </div>
+      <div>
+        <a href="https://www.linkedin.com/in/rifaterdemsahin/" target="_blank" class="btn btn-primary">
+          Open LinkedIn Profile
+        </a>
+      </div>
+    </header>
+
+    <!-- Top 3 Pinned Hero -->
+    <div class="hero-pinned">
+      <div class="hero-pinned-title">
+        <span>👑 The Top 3 Pinned Skills (Immediate Action Required)</span>
+        <span class="tag tag-emerald">Prime Real Estate</span>
+      </div>
+      <p class="hero-pinned-desc">
+        LinkedIn displays only your <strong>top 3 pinned skills</strong> above the fold on mobile and desktop search previews. Your current profile has <code>Codespaces</code> pinned in #3. Replace them with this exact trio:
+      </p>
+
+      <div class="pinned-grid">
+        <!-- Pinned 1 -->
+        <div class="pinned-box">
+          <div class="pinned-rank">Rank #1 (Pinned)</div>
+          <div class="pinned-name">Artificial General Intelligence (AGI)</div>
+          <div class="pinned-why">Aligns 100% with your new live headline. Signals visionary frontier research and cognitive systems thinking.</div>
+          <button class="btn-copy-skill" onclick="copyDirect('Artificial General Intelligence (AGI)')">Copy Exact Skill</button>
+        </div>
+
+        <!-- Pinned 2 -->
+        <div class="pinned-box">
+          <div class="pinned-rank">Rank #2 (Pinned)</div>
+          <div class="pinned-name">Autonomous Agents</div>
+          <div class="pinned-why">The #1 trending search query among Series A-C AI startups and enterprise innovation labs in 2026.</div>
+          <button class="btn-copy-skill" onclick="copyDirect('Autonomous Agents')">Copy Exact Skill</button>
+        </div>
+
+        <!-- Pinned 3 -->
+        <div class="pinned-box">
+          <div class="pinned-rank">Rank #3 (Pinned)</div>
+          <div class="pinned-name">Large Language Models (LLM)</div>
+          <div class="pinned-why">Essential anchor keyword for recruiter boolean strings. Captures enterprise LLM architecture and fine-tuning roles.</div>
+          <button class="btn-copy-skill" onclick="copyDirect('Large Language Models (LLM)')">Copy Exact Skill</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid: Removes & Adds -->
+    <div class="grid">
+      
+      <!-- Skills to Remove -->
+      <div class="col-6">
+        <div class="card" style="border-left: 4px solid var(--accent-rose); height: 100%;">
+          <div class="card-title">
+            <span>❌ Skills to REMOVE from LinkedIn</span>
+            <span class="tag tag-rose">Dilutes Brand</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.25rem;">
+            These legacy, tool-level, or junior skills currently appear on your CV export and drag down your perception as a £1,500/day architect:
+          </p>
+
+          <div class="remove-box">
+            <div>
+              <div class="remove-title">Codespaces</div>
+              <div class="remove-reason">Currently pinned in Top 3! Trivial IDE feature. Zero recruiter searches for $150k+ roles.</div>
+            </div>
+            <span class="tag tag-rose">Remove #1</span>
+          </div>
+
+          <div class="remove-box">
+            <div>
+              <div class="remove-title">Atom / Nano / Shell</div>
+              <div class="remove-reason">Atom is a discontinued editor. Nano/Shell are basic CLI tools that sound junior.</div>
+            </div>
+            <span class="tag tag-rose">Remove</span>
+          </div>
+
+          <div class="remove-box">
+            <div>
+              <div class="remove-title">SVN / VSS / Atlassian Bamboo</div>
+              <div class="remove-reason">Outdated version control tools from 15 years ago; signals legacy maintenance rather than AGI.</div>
+            </div>
+            <span class="tag tag-rose">Remove</span>
+          </div>
+
+          <div class="remove-box">
+            <div>
+              <div class="remove-title">BrowserStack / Selenium Remote</div>
+              <div class="remove-reason">Associated with manual QA/testing rather than frontier multi-agent systems.</div>
+            </div>
+            <span class="tag tag-rose">Remove</span>
+          </div>
+
+          <div class="remove-box">
+            <div>
+              <div class="remove-title">Windows Desktop Forms</div>
+              <div class="remove-reason">Ancient .NET desktop legacy from 2013; completely irrelevant to 2026 AI contracting.</div>
+            </div>
+            <span class="tag tag-rose">Remove</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills to Add -->
+      <div class="col-6">
+        <div class="card" style="border-left: 4px solid var(--accent-emerald); height: 100%;">
+          <div class="card-title">
+            <span>➕ Skills to ADD to LinkedIn</span>
+            <span class="tag tag-emerald">High-Ticket SEO</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.25rem;">
+            Click to copy each skill name exactly as it should be entered into LinkedIn's "Add skill" modal:
+          </p>
+
+          <div class="skill-action-row">
+            <div class="skill-info">
+              <div class="skill-text-block">
+                <strong>Artificial General Intelligence (AGI)</strong>
+                <span>Matches title; captures frontier AI strategy searches</span>
+              </div>
+            </div>
+            <button class="btn-copy-skill" onclick="copyDirect('Artificial General Intelligence (AGI)')">Copy</button>
+          </div>
+
+          <div class="skill-action-row">
+            <div class="skill-info">
+              <div class="skill-text-block">
+                <strong>Autonomous Agents</strong>
+                <span>#1 recruiter search keyword for agentic workflows</span>
+              </div>
+            </div>
+            <button class="btn-copy-skill" onclick="copyDirect('Autonomous Agents')">Copy</button>
+          </div>
+
+          <div class="skill-action-row">
+            <div class="skill-info">
+              <div class="skill-text-block">
+                <strong>Multi-Agent Systems</strong>
+                <span>Captures Swarm, LangGraph, CrewAI architectural roles</span>
+              </div>
+            </div>
+            <button class="btn-copy-skill" onclick="copyDirect('Multi-Agent Systems')">Copy</button>
+          </div>
+
+          <div class="skill-action-row">
+            <div class="skill-info">
+              <div class="skill-text-block">
+                <strong>AI Evaluation Frameworks (Evals)</strong>
+                <span>The #1 missing capability in Fortune 500 AI deployments</span>
+              </div>
+            </div>
+            <button class="btn-copy-skill" onclick="copyDirect('Evaluation Frameworks')">Copy</button>
+          </div>
+
+          <div class="skill-action-row">
+            <div class="skill-info">
+              <div class="skill-text-block">
+                <strong>Explainable AI (XAI) & SHAP/LIME</strong>
+                <span>Monetizes your 2025 adversarial defense research</span>
+              </div>
+            </div>
+            <button class="btn-copy-skill" onclick="copyDirect('Explainable AI (XAI)')">Copy</button>
+          </div>
+
+          <div class="skill-action-row">
+            <div class="skill-info">
+              <div class="skill-text-block">
+                <strong>Machine Learning Security</strong>
+                <span>Adversarial attacks (FGSM/PGD) and prompt injection defense</span>
+              </div>
+            </div>
+            <button class="btn-copy-skill" onclick="copyDirect('Machine Learning Security')">Copy</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Master Order: 1 to 20 -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <div class="card-title">
+        <span>🔢 The Complete Master Skills Order (Ranked 1 to 20)</span>
+        <span class="tag tag-blue">Reorder on LinkedIn</span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Arrange your skills on LinkedIn in this exact sequence. Top 3 are pinned; Ranks 4–8 provide frontier depth; Ranks 9–14 provide production engineering proof; Ranks 15–20 establish infrastructure pedigree:
+      </p>
+
+      <!-- Tier 1 -->
+      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent-emerald); font-weight: 800; letter-spacing: 0.05em; margin: 1rem 0 0.5rem;">
+        Tier 1: Top 3 Pinned (Above The Fold)
+      </h4>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top3">1</div>
+          <div class="skill-text-block">
+            <strong>Artificial General Intelligence (AGI)</strong>
+            <span>Frontier cognitive systems, self-improving loops</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Artificial General Intelligence (AGI)')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top3">2</div>
+          <div class="skill-text-block">
+            <strong>Autonomous Agents</strong>
+            <span>Multi-agent swarms, ReAct loops, tool execution</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Autonomous Agents')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top3">3</div>
+          <div class="skill-text-block">
+            <strong>Large Language Models (LLM)</strong>
+            <span>System prompt design, reasoning tokens, fine-tuning</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Large Language Models (LLM)')">Copy</button>
+      </div>
+
+      <!-- Tier 2 -->
+      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent-blue); font-weight: 800; letter-spacing: 0.05em; margin: 1.5rem 0 0.5rem;">
+        Tier 2: Frontier Intelligence & Safety (Ranks 4 - 8)
+      </h4>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top8">4</div>
+          <div class="skill-text-block">
+            <strong>Multi-Agent Systems</strong>
+            <span>Hierarchical supervision, state graphs (LangGraph/CrewAI)</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Multi-Agent Systems')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top8">5</div>
+          <div class="skill-text-block">
+            <strong>Evaluation Frameworks (Evals)</strong>
+            <span>DeepEval, Ragas, automated pull-request benchmarks</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Evaluation Frameworks')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top8">6</div>
+          <div class="skill-text-block">
+            <strong>Explainable AI (XAI)</strong>
+            <span>SHAP (Shapley values), LIME, model interpretability</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Explainable AI (XAI)')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top8">7</div>
+          <div class="skill-text-block">
+            <strong>Machine Learning Security</strong>
+            <span>Adversarial robustness (FGSM/PGD), guardrails, injection defense</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Machine Learning Security')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge top8">8</div>
+          <div class="skill-text-block">
+            <strong>Reasoning Models</strong>
+            <span>Test-time compute, MCTS, Process Reward Models (PRMs)</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Reasoning Models')">Copy</button>
+      </div>
+
+      <!-- Tier 3 -->
+      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent-purple); font-weight: 800; letter-spacing: 0.05em; margin: 1.5rem 0 0.5rem;">
+        Tier 3: Enterprise AI Architecture & MLOps (Ranks 9 - 14)
+      </h4>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">9</div>
+          <div class="skill-text-block">
+            <strong>MLOps</strong>
+            <span>Continuous delivery for ML, model drift monitoring</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('MLOps')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">10</div>
+          <div class="skill-text-block">
+            <strong>Enterprise AI Architecture</strong>
+            <span>Zero-to-production deployment, latency budgets, cost engineering</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Enterprise AI Architecture')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">11</div>
+          <div class="skill-text-block">
+            <strong>Claude & Anthropic API</strong>
+            <span>Certified architect pedigree, tool use, prompt chaining</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Anthropic Claude')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">12</div>
+          <div class="skill-text-block">
+            <strong>vLLM & Inference Optimization</strong>
+            <span>PagedAttention, high-throughput private model hosting</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('vLLM')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">13</div>
+          <div class="skill-text-block">
+            <strong>PyTorch</strong>
+            <span>Deep learning modeling, gradient calculation, tensor manipulation</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('PyTorch')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">14</div>
+          <div class="skill-text-block">
+            <strong>Python</strong>
+            <span>Primary language for AI agents, FastAPI, Pydantic schemas</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Python')">Copy</button>
+      </div>
+
+      <!-- Tier 4 -->
+      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--accent-amber); font-weight: 800; letter-spacing: 0.05em; margin: 1.5rem 0 0.5rem;">
+        Tier 4: Enterprise Infrastructure & Cloud (Ranks 15 - 20)
+      </h4>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">15</div>
+          <div class="skill-text-block">
+            <strong>Terraform</strong>
+            <span>Infrastructure as Code (IaC), multi-cloud provisioning</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Terraform')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">16</div>
+          <div class="skill-text-block">
+            <strong>Kubernetes & Docker</strong>
+            <span>Container orchestration, GPU workload scheduling</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Kubernetes')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">17</div>
+          <div class="skill-text-block">
+            <strong>Microsoft Azure</strong>
+            <span>Cloud Solution Architect track, Azure OpenAI, Key Vault</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Microsoft Azure')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">18</div>
+          <div class="skill-text-block">
+            <strong>Amazon Web Services (AWS)</strong>
+            <span>Bedrock, SageMaker, cloud infrastructure</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Amazon Web Services (AWS)')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">19</div>
+          <div class="skill-text-block">
+            <strong>CI/CD Pipelines</strong>
+            <span>GitHub Actions, automated quality gates, automated deployment</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('CI/CD')">Copy</button>
+      </div>
+
+      <div class="skill-action-row">
+        <div class="skill-info">
+          <div class="skill-rank-badge">20</div>
+          <div class="skill-text-block">
+            <strong>Distributed Systems Architecture</strong>
+            <span>High-concurrency microservices, state machines, fault tolerance</span>
+          </div>
+        </div>
+        <button class="btn-copy-skill" onclick="copyDirect('Distributed Systems')">Copy</button>
+      </div>
+
+    </div>
+
+    <!-- Step-by-Step Instructions -->
+    <div class="card">
+      <div class="card-title">
+        <span>🛠️ How to Reorder Skills on LinkedIn (2-Minute Guide)</span>
+        <span class="tag tag-emerald">Step-by-Step</span>
+      </div>
+
+      <ol style="color: var(--text-muted); font-size: 0.92rem; padding-left: 1.5rem; line-height: 1.8;">
+        <li>Go to your LinkedIn profile: <a href="https://www.linkedin.com/in/rifaterdemsahin/" target="_blank" style="color: var(--accent-blue);">https://www.linkedin.com/in/rifaterdemsahin/</a></li>
+        <li>Scroll down to the <strong>Skills</strong> section and click the <strong>Pencil icon (Edit)</strong>.</li>
+        <li>Click the three dots (<code>...</code>) &rarr; <strong>"Reorder"</strong>.</li>
+        <li><strong>Unpin Codespaces</strong> by clicking the pin icon next to it.</li>
+        <li>Add the new skills (<code>Artificial General Intelligence (AGI)</code>, <code>Autonomous Agents</code>, <code>Multi-Agent Systems</code>, <code>Evaluation Frameworks</code>).</li>
+        <li>Pin the top 3: <strong>1. Artificial General Intelligence (AGI)</strong>, <strong>2. Autonomous Agents</strong>, <strong>3. Large Language Models (LLM)</strong>.</li>
+        <li>Delete the legacy skills (Codespaces, Atom, Nano, SVN, BrowserStack) by clicking the trash icon next to each.</li>
+        <li>Click <strong>Save</strong>.</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <div id="toast">Copied to clipboard!</div>
+
+  <script src="nav.js"></script>
+  <script>
+    function copyDirect(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast();
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.className = 'show';
+      setTimeout(() => {
+        toast.className = toast.className.replace('show', '');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>

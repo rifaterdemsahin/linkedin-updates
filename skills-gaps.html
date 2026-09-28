@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 AI Skills Gap Analysis & Roadmap | Rifat Erdem Sahin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.88);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(168, 85, 247, 0.08) 0px, transparent 40%),
+        radial-gradient(at 85% 85%, rgba(56, 189, 248, 0.08) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    .container { max-width: 1240px; margin: 0 auto; }
+
+    header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-left h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-left p { color: var(--text-muted); margin-top: 0.35rem; font-size: 0.95rem; }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      color: var(--accent-purple);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+
+    @media (max-width: 950px) {
+      .col-8, .col-6, .col-4 { grid-column: span 12; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .tag-purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+
+    /* Summary Stat Cards */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 800px) {
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .stat-grid { grid-template-columns: 1fr; }
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .stat-card .num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-card .label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+
+    /* Gap Domain Card */
+    .gap-card {
+      background: rgba(18, 24, 38, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .gap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .gap-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .gap-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 700px) {
+      .gap-comparison { grid-template-columns: 1fr; }
+    }
+
+    .box-current {
+      background: rgba(244, 63, 94, 0.04);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .box-future {
+      background: rgba(16, 185, 129, 0.04);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .box-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .box-current .box-label { color: var(--accent-rose); }
+    .box-future .box-label { color: var(--accent-emerald); }
+
+    .action-box {
+      background: rgba(56, 189, 248, 0.04);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .action-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .checklist li {
+      margin-bottom: 0.6rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .checklist li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent-purple);
+      font-weight: bold;
+    }
+
+    /* Roadmap Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 2px solid rgba(168, 85, 247, 0.3);
+      margin-top: 1.5rem;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -2.45rem;
+      top: 0.2rem;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-purple);
+      border: 3px solid var(--bg);
+    }
+    .timeline-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <span class="header-badge">🧠 2026 Frontier Intelligence Audit</span>
+        <h1>2026 AI Skills Gap Analysis & Roadmap</h1>
+        <p>Target Profile: <strong>Erdem (Rifat) Sahin</strong> &bull; Transitioning into Elite AGI & Agentic Contracting</p>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-secondary">
+          ← Back to Dashboard
+        </a>
+        <a href="https://www.linkedin.com/in/rifaterdemsahin/" target="_blank" class="btn btn-primary">
+          Open LinkedIn Profile
+        </a>
+      </div>
+    </header>
+
+    <!-- Stat Highlights -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num" style="color: var(--accent-purple);">6 Domains</div>
+        <div class="label">Identified Skill Gaps</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" style="color: var(--accent-rose);">Codespaces</div>
+        <div class="label">#1 Wasted Profile Skill</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" style="color: var(--accent-emerald);">Evals & MCTS</div>
+        <div class="label">2026 High-Value Demand</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" style="color: var(--accent-blue);">£1.5k+/Day</div>
+        <div class="label">Post-Bridge Contract Rate</div>
+      </div>
+    </div>
+
+    <!-- Executive Overview Card -->
+    <div class="card" style="margin-bottom: 2rem;">
+      <div class="card-title">
+        <span>Executive Gap Diagnosis: Why a 2026 Audit is Crucial</span>
+        <span class="tag tag-amber">2026 Market Shift</span>
+      </div>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        In 2024, the market rewarded <em>"Prompt Engineers"</em> and vendor-certified architects. In <strong>2026</strong>, single-prompt engineering is a commoditized baseline. The enterprise market has bifurcated: basic prompt work is automated, while massive enterprise budgets (£1,200–£2,000/day) flow exclusively to architects who solve <strong>Test-Time Compute, Reasoning Tokens, Multi-Agent Coordination, and Rigorous Evaluation Harnesses (Evals)</strong>.
+      </p>
+      <p style="color: var(--text-muted);">
+        Your 29-page CV export displays world-class infrastructure foundations (Goldman Sachs, Microsoft, Accenture, Kubernetes, Terraform) and genuine adversarial machine learning research (SHAP, LIME). However, it exhibits <strong>six critical gaps</strong> that must be bridged to establish absolute market dominance as an <strong>AGI Researcher & Agentic Systems Architect</strong> in 2026.
+      </p>
+    </div>
+
+    <!-- Domain 1: Reasoning & Test-Time Compute -->
+    <div class="gap-card">
+      <div class="gap-header">
+        <div class="gap-title">
+          <span style="font-size: 1.4rem;">🧠</span>
+          <span>Domain 1: Reasoning, Test-Time Compute & Cognitive Loops</span>
+        </div>
+        <span class="tag tag-rose">Critical Gap</span>
+      </div>
+      <div class="gap-comparison">
+        <div class="box-current">
+          <div class="box-label">Current CV Export State</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • ChatGPT Prompt Engineering training modules (4-hour basics from 2024).<br>
+            • Claude Certified Architect (Anthropic tool usage & API calls).<br>
+            • Classical model training & interpretability (SHAP, LIME).
+          </p>
+        </div>
+        <div class="box-future">
+          <div class="box-label">2026 Market Expectation for AGI Researcher</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Test-time compute scaling (DeepSeek R1, OpenAI o1/o3 reasoning traces).<br>
+            • Monte Carlo Tree Search (MCTS) & Process Reward Models (PRMs).<br>
+            • Self-correcting cognitive loops (Reflexion, Tree of Thoughts, ReAct).
+          </p>
+        </div>
+      </div>
+      <div class="action-box">
+        <div class="action-label">🛠️ Bridge Action for Rifat (30-Day Plan)</div>
+        <ul class="checklist">
+          <li>Build an open-source demonstration combining <strong>Tree of Thoughts / MCTS</strong> with reasoning trace evaluation on complex code synthesis.</li>
+          <li>Publish a benchmark comparison comparing <em>DeepSeek R1 reasoning token dynamics</em> vs <em>Claude 3.7 hybrid thinking mode</em> for automated architecture refactoring.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Domain 2: Evaluation Engineering (Evals) -->
+    <div class="gap-card">
+      <div class="gap-header">
+        <div class="gap-title">
+          <span style="font-size: 1.4rem;">🎯</span>
+          <span>Domain 2: Evaluation Engineering (Evals) & Automated Regression</span>
+        </div>
+        <span class="tag tag-rose">#1 Enterprise Blocker</span>
+      </div>
+      <div class="gap-comparison">
+        <div class="box-current">
+          <div class="box-label">Current CV Export State</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Software QA & SonarQube static analysis (Accenture / UniCredit).<br>
+            • Smoke tests, BrowserStack, Selenium (DevOps pipeline testing).<br>
+            • No mention of probabilistic LLM evaluation harnesses or synthetic test benches.
+          </p>
+        </div>
+        <div class="box-future">
+          <div class="box-label">2026 Market Expectation for AGI Researcher</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Automated Evals CI/CD: DeepEval, Ragas, TruLens, LLM-as-a-judge.<br>
+            • Synthetic data generation for domain-specific benchmark creation.<br>
+            • Regression test suites that block agent deployments if hallucination rate &gt; 2%.
+          </p>
+        </div>
+      </div>
+      <div class="action-box">
+        <div class="action-label">🛠️ Bridge Action for Rifat (30-Day Plan)</div>
+        <ul class="checklist">
+          <li>Repurpose your deep <strong>CI/CD pipeline mastery</strong> to create <strong>"Evals-Driven Development" (EDD)</strong>: automated GitHub Actions pipelines that run 500 prompt evals on every pull request.</li>
+          <li>Feature <strong>System Architecture & Evaluation Frameworks (Evals)</strong> prominently in your top skills.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Domain 3: Multi-Agent Swarms & Orchestration -->
+    <div class="gap-card">
+      <div class="gap-header">
+        <div class="gap-title">
+          <span style="font-size: 1.4rem;">🐝</span>
+          <span>Domain 3: Multi-Agent Swarms & Orchestration Frameworks</span>
+        </div>
+        <span class="tag tag-amber">High Leverage</span>
+      </div>
+      <div class="gap-comparison">
+        <div class="box-current">
+          <div class="box-label">Current CV Export State</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Microservices orchestration, CQRS pattern (Broadage, 2013).<br>
+            • Docker Swarm, Kubernetes, Container Registries (DevOps).<br>
+            • Single-model prompt scripts without dynamic multi-agent state machines.
+          </p>
+        </div>
+        <div class="box-future">
+          <div class="box-label">2026 Market Expectation for AGI Researcher</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • State-graph agent architectures: LangGraph, AutoGen 0.4+, CrewAI, AGY.<br>
+            • Hierarchical supervisory swarms with consensus voting & fallback cascades.<br>
+            • DSPy (Declarative Self-improving Prompting & algorithmic optimization).
+          </p>
+        </div>
+      </div>
+      <div class="action-box">
+        <div class="action-label">🛠️ Bridge Action for Rifat (30-Day Plan)</div>
+        <ul class="checklist">
+          <li>Frame your 10+ years of distributed systems & microservices as the <em>architectural blueprint</em> for resilient multi-agent swarms.</li>
+          <li>Implement a production-grade 3-agent swarm (Planner, Executor, Critic) utilizing deterministic Pydantic state schemas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Domain 4: AI Safety & Adversarial Defenses -->
+    <div class="gap-card">
+      <div class="gap-header">
+        <div class="gap-title">
+          <span style="font-size: 1.4rem;">🛡️</span>
+          <span>Domain 4: Production Guardrails & Adversarial Defenses</span>
+        </div>
+        <span class="tag tag-emerald">Your Secret Superpower</span>
+      </div>
+      <div class="gap-comparison">
+        <div class="box-current">
+          <div class="box-label">Current CV Export State</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • 2025 Adversarial Attack Defense: SHAP, LIME, FGSM, PGD.<br>
+            • Listed passively as an academic research entry.<br>
+            • Not linked to enterprise agent deployment risks or financial compliance.
+          </p>
+        </div>
+        <div class="box-future">
+          <div class="box-label">2026 Market Expectation for AGI Researcher</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Commercial Guardrails: NeMo Guardrails, Llama Guard 3, Lakera Gandalf defense.<br>
+            • Indirect prompt injection containment & deterministic tool permissions.<br>
+            • Real-time LLM observability (Langfuse, Arize Phoenix, OpenTelemetry).
+          </p>
+        </div>
+      </div>
+      <div class="action-box">
+        <div class="action-label">🛠️ Bridge Action for Rifat (30-Day Plan)</div>
+        <ul class="checklist">
+          <li><strong>Monetize your SHAP/LIME research</strong>: Position yourself as the rare architect who guarantees <em>Safe & Compliant Autonomous Agents</em> for banks, insurance, and healthcare.</li>
+          <li>Add "Adversarial AI Safety & Guardrails" as a core pillar in client pitches.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Domain 5: Latency, Quantization & Sovereign Models -->
+    <div class="gap-card">
+      <div class="gap-header">
+        <div class="gap-title">
+          <span style="font-size: 1.4rem;">⚡</span>
+          <span>Domain 5: Inference Optimization, vLLM & Sovereign Deployment</span>
+        </div>
+        <span class="tag tag-purple">Enterprise Savings</span>
+      </div>
+      <div class="gap-comparison">
+        <div class="box-current">
+          <div class="box-label">Current CV Export State</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Cloud infrastructure (Azure, AWS, DigitalOcean).<br>
+            • Serverless Azure Functions and API gateways.<br>
+            • High reliance on cloud APIs (Claude Anthropic, ChatGPT).
+          </p>
+        </div>
+        <div class="box-future">
+          <div class="box-label">2026 Market Expectation for AGI Researcher</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • High-throughput self-hosted inference: vLLM, TensorRT-LLM, SGLang.<br>
+            • Speculative decoding, KV cache compression & PagedAttention.<br>
+            • Sovereign on-premise deployment of open-weights models (DeepSeek, Llama 3/4).
+          </p>
+        </div>
+      </div>
+      <div class="action-box">
+        <div class="action-label">🛠️ Bridge Action for Rifat (30-Day Plan)</div>
+        <ul class="checklist">
+          <li>Demonstrate how hosting open-weight models with vLLM slashes enterprise API costs by 70% while satisfying GDPR/data sovereignty.</li>
+          <li>Combine Kubernetes/Terraform infrastructure roots with GPU cluster provisioning for private LLM inference.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Domain 6: Commercial Packaging & Profile Hygiene -->
+    <div class="gap-card">
+      <div class="gap-header">
+        <div class="gap-title">
+          <span style="font-size: 1.4rem;">💼</span>
+          <span>Domain 6: Commercial Packaging & LinkedIn Hygiene</span>
+        </div>
+        <span class="tag tag-rose">Immediate Fix</span>
+      </div>
+      <div class="gap-comparison">
+        <div class="box-current">
+          <div class="box-label">Current CV Export State</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Top 3 Skills: MLOps, Terraform, <strong>Codespaces</strong>.<br>
+            • 29 pages of historical entries with older tech (Bamboo, SVN, Octopus Deploy).<br>
+            • Unclear transition between 2021 (Canadalife) and 2023 (Goldman Sachs).
+          </p>
+        </div>
+        <div class="box-future">
+          <div class="box-label">2026 Market Expectation for AGI Researcher</div>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            • Top 3 Skills: Artificial General Intelligence (AGI), Autonomous Agents, LLM Evals.<br>
+            • Condensed, high-impact career narrative showcasing 15+ years of outside-IR35 advisory.<br>
+            • DeliveryPilot positioned as the premier AGI & Agentic Systems contracting vehicle.
+          </p>
+        </div>
+      </div>
+      <div class="action-box">
+        <div class="action-label">🛠️ Bridge Action for Rifat (Immediate)</div>
+        <ul class="checklist">
+          <li>Unpin Codespaces from LinkedIn immediately.</li>
+          <li>Replace casual About summary with the executive copy provided in the main dashboard.</li>
+          <li>Consolidate older pre-2015 roles to prevent profile fatigue and keep recruiters focused on your high-value AGI & Goldman Sachs accomplishments.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 30-60-90 Day Strategic Roadmap -->
+    <div class="card">
+      <div class="card-title">
+        <span>30-60-90 Day Strategic Roadmap to £1,500/Day Contracts</span>
+        <span class="tag tag-emerald">Action Plan</span>
+      </div>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Days 1 - 30: Profile Transformation & Evals Flagship</div>
+          <div class="timeline-desc">
+            • Complete LinkedIn profile updates (Headline, About, Skills, Banner).<br>
+            • Unpin Codespaces and pin AGI & Multi-Agent systems.<br>
+            • Publish 1 open-source repository showcasing automated Evals CI/CD for agentic workflows.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Days 31 - 60: Outbound & Thought Leadership Sprints</div>
+          <div class="timeline-desc">
+            • Publish bi-weekly technical teardowns on frontier model reasoning dynamics (R1 vs Claude hybrid).<br>
+            • Launch direct outbound to 50 Series A-C CTOs offering a 3-point Agent Failure Mode audit.<br>
+            • Close first 2-week Discovery Sprint (£5k–£10k fixed fee).
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Days 61 - 90: High-Rate Retainer Lock-in</div>
+          <div class="timeline-desc">
+            • Convert Discovery Sprint clients into 3-day/week fractional contracts at £1,000–£1,500/day.<br>
+            • Institutionalize DeliveryPilot as the premier enterprise partner for safe autonomous agent deployments.<br>
+            • Maintain Outside IR35 compliance with clear SOW deliverables and substitution rights.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

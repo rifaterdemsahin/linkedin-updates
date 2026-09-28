@@ -18,6 +18,10 @@ open -a "Google Chrome" http://localhost:30083
 ## 📂 Repository Contents
 
 - **`index.html`**: Interactive web dashboard featuring one-click copy buttons for headlines, about sections, featured skills, announcement posts, and the 4 pillars of contracting.
+- **`skills-gaps.html`**: Comprehensive 2026 AI Skills Gap Analysis across 6 critical domains with bridge actions, recommended frameworks, and a 30-60-90 day roadmap.
 - **`UPDATES.md`**: Complete changelog of LinkedIn profile revisions, rationale, before-and-after copy, and SEO keyword targets.
   - **Update #001**: Title change from `Claude Certified Architect` to `AGI Researcher & Agentic Systems Architect`.
+  - **Update #002**: Name refinement (`Erdem (Rifat) Sahin`), location precision, and banner audit.
+  - **Update #003**: Live confirmation of `AGI Researcher & Agentic Systems Architect`.
+- **`CV_ANALYSIS.md`**: In-depth forensic audit of the 29-page CV export.
 - **`CONTRACTING_PLAYBOOK.md`**: Detailed strategy guide to **Land**, **Train**, **Adapt**, and **Secure** high-value enterprise contracting and fractional advisory roles.

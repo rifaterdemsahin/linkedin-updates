@@ -401,17 +401,18 @@
       { id: 2, text: "Update full name to 'Erdem (Rifat) Sahin' on LinkedIn", category: "profile", priority: "high", completed: true },
       { id: 3, text: "Update location to 'Cambridge, England, United Kingdom'", category: "profile", priority: "high", completed: true },
       { id: 4, text: "Upload DeliveryPilot AGI banner (linkedin_banner_28_September_2026.jpeg)", category: "profile", priority: "high", completed: true },
-      { id: 5, text: "Unpin 'Codespaces' from top 3 LinkedIn skills (Remove wasted keyword)", category: "profile", priority: "high", completed: false },
-      { id: 6, text: "Pin 'Artificial General Intelligence (AGI)' & 'Autonomous Agents' in Top Skills", category: "profile", priority: "high", completed: false },
-      { id: 7, text: "Replace casual About section with executive authority copy (15+ yrs + Evals)", category: "profile", priority: "high", completed: false },
-      { id: 8, text: "Publish transition announcement post on LinkedIn to engage 10k+ network", category: "inbound", priority: "high", completed: false },
-      { id: 9, text: "Build open-source PoC: Tree-of-Thoughts / MCTS code synthesis reasoning traces", category: "skills", priority: "high", completed: false },
-      { id: 10, text: "Create automated GitHub Actions Evals CI/CD demo (DeepEval / Ragas pass/fail gates)", category: "skills", priority: "high", completed: false },
-      { id: 11, text: "Set LinkedIn 'Open to Work' to Recruiters Only for AGI Researcher & Fractional Head of AI", category: "inbound", priority: "high", completed: false },
-      { id: 12, text: "Prepare 3-Point Agent Failure Mode outbound pitch for Series A-C CTOs", category: "inbound", priority: "med", completed: false },
-      { id: 13, text: "Package 2-Week Architecture Discovery Sprint SOW (£5,000–£10,000 fixed fee)", category: "contracting", priority: "high", completed: false },
-      { id: 14, text: "Set up Outside-IR35 contract terms with clear right-of-substitution clause", category: "contracting", priority: "high", completed: false },
-      { id: 15, text: "Publish first bi-weekly architectural teardown post (Claude 3.7 vs DeepSeek R1)", category: "inbound", priority: "med", completed: false }
+      { id: 5, text: "Delete 'Codespaces' from LinkedIn skills (Wasted slot eliminated)", category: "profile", priority: "high", completed: true },
+      { id: 6, text: "Pin 'Artificial General Intelligence (AGI)' in Top Skills (#1 slot locked)", category: "profile", priority: "high", completed: true },
+      { id: 7, text: "Pin 'Autonomous Agents' & 'Large Language Models (LLM)' to Top 3", category: "profile", priority: "high", completed: false },
+      { id: 8, text: "Replace casual About section with executive authority copy (15+ yrs + Evals)", category: "profile", priority: "high", completed: false },
+      { id: 9, text: "Publish transition announcement post on LinkedIn to engage 10k+ network", category: "inbound", priority: "high", completed: false },
+      { id: 10, text: "Build open-source PoC: Tree-of-Thoughts / MCTS code synthesis reasoning traces", category: "skills", priority: "high", completed: false },
+      { id: 11, text: "Create automated GitHub Actions Evals CI/CD demo (DeepEval / Ragas pass/fail gates)", category: "skills", priority: "high", completed: false },
+      { id: 12, text: "Set LinkedIn 'Open to Work' to Recruiters Only for AGI Researcher & Fractional Head of AI", category: "inbound", priority: "high", completed: false },
+      { id: 13, text: "Prepare 3-Point Agent Failure Mode outbound pitch for Series A-C CTOs", category: "inbound", priority: "med", completed: false },
+      { id: 14, text: "Package 2-Week Architecture Discovery Sprint SOW (£5,000–£10,000 fixed fee)", category: "contracting", priority: "high", completed: false },
+      { id: 15, text: "Set up Outside-IR35 contract terms with clear right-of-substitution clause", category: "contracting", priority: "high", completed: false },
+      { id: 16, text: "Publish first bi-weekly architectural teardown post (Claude 3.7 vs DeepSeek R1)", category: "inbound", priority: "med", completed: false }
     ];
 
     let todos = [];
@@ -423,6 +424,11 @@
       if (saved) {
         try {
           todos = JSON.parse(saved);
+          // Sync live completed updates
+          const t5 = todos.find(t => t.id === 5);
+          if (t5) t5.completed = true;
+          const t6 = todos.find(t => t.id === 6);
+          if (t6) t6.completed = true;
         } catch (e) {
           todos = [...DEFAULT_TODOS];
         }

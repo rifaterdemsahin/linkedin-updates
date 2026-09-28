@@ -5,6 +5,18 @@
 
 ---
 
+## 📌 Update #003: Core Title Upgraded Live on Profile
+
+- **Date**: September 28, 2026
+- **Status**: ✅ **Applied Live on Profile**
+- **Headline / Title**: `AGI Researcher & Agentic Systems Architect`
+- **Strategic Impact**:
+  - Blends high-status frontier scientific research (`AGI Researcher`) with commercial production engineering (`Agentic Systems Architect`).
+  - Directly matches Boolean search filters used by venture-backed startups and Fortune 500 enterprises hiring £1,000–£1,800/day contractors.
+  - Clarifies that you build deterministic, multi-agent systems rather than just experimenting with theoretical research.
+
+---
+
 ## 📌 Update #002: Profile Identity Refinement & Custom Banner
 
 - **Date**: September 28, 2026

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Updates & Contracting OS | Rifat Erdem Sahin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.08) 0px, transparent 40%),
+        radial-gradient(at 90% 80%, rgba(168, 85, 247, 0.08) 0px, transparent 40%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-left h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-left p {
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      font-size: 0.95rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent-blue);
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+
+    @media (max-width: 900px) {
+      .col-8, .col-6, .col-4 { grid-column: span 12; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .tag-purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+
+    /* Comparison Box */
+    .diff-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 650px) {
+      .diff-box { grid-template-columns: 1fr; }
+    }
+
+    .diff-col {
+      padding: 1.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+
+    .diff-col.old {
+      background: rgba(244, 63, 94, 0.05);
+      border-color: rgba(244, 63, 94, 0.2);
+    }
+
+    .diff-col.new {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    .diff-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .diff-col.old .diff-label { color: var(--accent-rose); }
+    .diff-col.new .diff-label { color: var(--accent-emerald); }
+
+    .diff-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .copy-block {
+      background: var(--code-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.25rem;
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .copy-block pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-blue);
+      color: #000;
+    }
+
+    /* Pillars */
+    .pillar-card {
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--card-border);
+      background: rgba(18, 24, 38, 0.6);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pillar-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .pillar-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .pillar-land .pillar-icon { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .pillar-train .pillar-icon { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+    .pillar-adapt .pillar-icon { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .pillar-secure .pillar-icon { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+
+    .pillar-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .pillar-list {
+      list-style: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      flex-grow: 1;
+    }
+
+    .pillar-list li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1.4rem;
+    }
+
+    .pillar-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent-blue);
+      font-weight: bold;
+    }
+
+    /* Toast */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #10b981;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px 20px;
+      position: fixed;
+      z-index: 9999;
+      bottom: 30px;
+      right: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    #toast.show {
+      visibility: visible;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <span class="header-badge">🚀 Active Profile Tracker</span>
+        <h1>LinkedIn Updates & Contracting OS</h1>
+        <p>Target Profile: <strong>Rifat Erdem Sahin</strong> &bull; Positioning for High-Impact Contracting & Advisory</p>
+      </div>
+      <div class="header-actions">
+        <a href="https://www.linkedin.com/in/rifaterdemsahin/" target="_blank" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.59 1.59 0 1 0-.01-3.18 1.59 1.59 0 0 0 .01 3.18m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>
+          Open LinkedIn Profile
+        </a>
+        <a href="CONTRACTING_PLAYBOOK.md" target="_blank" class="btn btn-secondary">
+          📖 Full Playbook
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="grid">
+      
+      <!-- Update #001 Card -->
+      <div class="col-8">
+        <div class="card">
+          <div class="card-title">
+            <span>Update #001: Headline & Identity Pivot</span>
+            <span class="tag tag-emerald">Ready To Apply</span>
+          </div>
+
+          <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
+            Shifting positioning from vendor-specific tool implementation (Claude) to frontier research and cognitive architecture leadership (AGI Researcher) to command elite contracting rates.
+          </p>
+
+          <!-- Diff View -->
+          <div class="diff-box">
+            <div class="diff-col old">
+              <div class="diff-label">Previous Title</div>
+              <div class="diff-title">Claude Certified Architect</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Perceived as a specialized vendor tool practitioner.</p>
+            </div>
+            <div class="diff-col new">
+              <div class="diff-label">New Strategic Title</div>
+              <div class="diff-title">AGI Researcher</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">Perceived as a frontier researcher & enterprise AI systems architect.</p>
+            </div>
+          </div>
+
+          <!-- Headline Option 1 -->
+          <h4 style="margin-bottom: 0.5rem; color: #fff;">1. Primary Recommended Headline (Optimized for Contracting & Inbound SEO)</h4>
+          <div class="copy-block">
+            <button class="copy-btn" onclick="copyText('headline-1')">Copy Headline</button>
+            <pre id="headline-1">AGI Researcher & Agentic Systems Architect | Frontier AI, Multi-Agent Orchestration & LLM Systems | Enterprise AI Strategy & Contracting</pre>
+          </div>
+
+          <!-- Headline Option 2 -->
+          <h4 style="margin-bottom: 0.5rem; color: #fff;">2. Alternative Headline (Direct Fractional Focus)</h4>
+          <div class="copy-block">
+            <button class="copy-btn" onclick="copyText('headline-2')">Copy Alternative</button>
+            <pre id="headline-2">AGI Researcher & Fractional AI Architect | Autonomous Agents, Cognitive Systems & LLM Production | Available for Strategic Contracting</pre>
+          </div>
+
+          <!-- About Section Rewrite -->
+          <h4 style="margin-bottom: 0.5rem; color: #fff;">3. Strategic About Section Rewrite</h4>
+          <div class="copy-block">
+            <button class="copy-btn" onclick="copyText('about-text')">Copy About</button>
+            <pre id="about-text">I research and engineer frontier Artificial General Intelligence (AGI) systems, autonomous multi-agent architectures, and production-grade LLM applications.
+
+With a background spanning cloud architecture, DevOps, and certified frontier model implementations, I bridge the critical gap between bleeding-edge research and mission-critical enterprise deployment.
+
+What I Do:
+• AGI & Agentic Research: Cognitive architectures, self-evolving agents, multi-agent coordination, and recursive problem-solving workflows.
+• Enterprise AI Architecture: Productionizing LLMs, agent evaluation pipelines (Evals), guardrails, and deterministic tool-use systems.
+• Fractional & Contracting Engagements: Guiding executive leadership and engineering teams from prototype to resilient production.
+
+Key Focus Areas:
+Multi-Agent Systems | Autonomous Coding Agents | Cognitive Architectures | LLM Evals & Guardrails | Frontier Model Orchestration
+
+Open for strategic contracting roles, fractional AI architecture, and advisory consultations.
+Connect with me or reach out at: https://www.linkedin.com/in/rifaterdemsahin/</pre>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Quick Actions & Top Skills -->
+      <div class="col-4">
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <div class="card-title">
+            <span>Featured Skills Pivot</span>
+            <span class="tag tag-blue">Reorder</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
+            Place these top 5 skills at the top of your LinkedIn profile to optimize recruiter keyword filters:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.04); border-radius: 6px; font-size: 0.85rem; font-weight: 600; border-left: 3px solid var(--accent-blue);">
+              1. Artificial General Intelligence (AGI)
+            </div>
+            <div style="padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.04); border-radius: 6px; font-size: 0.85rem; font-weight: 600; border-left: 3px solid var(--accent-purple);">
+              2. Autonomous Agents & Multi-Agent Systems
+            </div>
+            <div style="padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.04); border-radius: 6px; font-size: 0.85rem; font-weight: 600; border-left: 3px solid var(--accent-emerald);">
+              3. Large Language Models (LLM) Architecture
+            </div>
+            <div style="padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.04); border-radius: 6px; font-size: 0.85rem; font-weight: 600; border-left: 3px solid var(--accent-amber);">
+              4. System Architecture & Evaluation Frameworks (Evals)
+            </div>
+            <div style="padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.04); border-radius: 6px; font-size: 0.85rem; font-weight: 600; border-left: 3px solid var(--accent-blue);">
+              5. Claude & Frontier Model Engineering
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Announcement Post</span>
+            <span class="tag tag-purple">Share Now</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.8rem;">
+            Publish this update post to signal your transition and invite inbound inquiries:
+          </p>
+          <div class="copy-block">
+            <button class="copy-btn" onclick="copyText('post-text')">Copy Post</button>
+            <pre id="post-text">Transitioning my primary focus to: AGI Researcher & Agentic Systems Architect 🚀
+
+While my work as a Claude Certified Architect proved the immense power of vendor frontier models, the real enterprise frontier is beyond single prompts.
+
+It lies in:
+1. Autonomous multi-agent coordination
+2. Cognitive architectures & continuous memory
+3. Battle-tested Evaluation (Evals) & deterministic guardrails
+
+I'm partnering with ambitious teams as an enterprise AI contractor and fractional architect to turn frontier research into high-ROI production systems.
+
+Looking to deploy resilient agentic systems? Let's connect.
+https://www.linkedin.com/in/rifaterdemsahin/</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4 Pillars of Contracting Section -->
+    <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 1.25rem; color: #fff;">
+      The 4 Pillars of High-Impact AI Contracting
+    </h2>
+
+    <div class="grid">
+      <!-- LAND -->
+      <div class="col-6">
+        <div class="pillar-card pillar-land">
+          <div class="pillar-header">
+            <div class="pillar-icon">🎯</div>
+            <div>
+              <div class="pillar-title">1. LAND: Client Acquisition & Inbound SEO</div>
+              <span class="tag tag-blue">Inbound & Outbound</span>
+            </div>
+          </div>
+          <ul class="pillar-list">
+            <li><strong>SEO Saturation</strong>: Ensure exact match keywords appear across Headline, About, and Experience for recruiter boolean queries.</li>
+            <li><strong>Recruiter-Only Open to Work</strong>: Preserves high-status consultant perception while activating recruiter pipeline filters.</li>
+            <li><strong>Founder/CTO Direct Outreach</strong>: Offer a concise 3-point benchmark audit on agent loop failure modes and evals.</li>
+            <li><strong>Bi-weekly Technical Teardowns</strong>: Share teardowns of frontier models (DeepSeek R1, Claude 3.7, Swarms) to establish technical authority.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TRAIN -->
+      <div class="col-6">
+        <div class="pillar-card pillar-train">
+          <div class="pillar-header">
+            <div class="pillar-icon">🔬</div>
+            <div>
+              <div class="pillar-title">2. TRAIN: Frontier Technical Dominance</div>
+              <span class="tag tag-purple">Skills & Benchmarks</span>
+            </div>
+          </div>
+          <ul class="pillar-list">
+            <li><strong>Cognitive Architectures</strong>: Master ReAct, Plan-and-Solve, Reflexion, Swarms, and autonomous agent loops.</li>
+            <li><strong>Evaluation Engineering (Evals)</strong>: The #1 missing competency in enterprise AI (DeepEval, Ragas, LLM-as-judge).</li>
+            <li><strong>Inference & Latency Optimization</strong>: vLLM, speculative decoding, model distillation, and strict JSON schemas.</li>
+            <li><strong>Continuous Arxiv Scans</strong>: Maintain a 6-12 month advantage ahead of standard full-stack developers.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ADAPT -->
+      <div class="col-6">
+        <div class="pillar-card pillar-adapt">
+          <div class="pillar-header">
+            <div class="pillar-icon">⚡</div>
+            <div>
+              <div class="pillar-title">3. ADAPT: Research to Production ROI</div>
+              <span class="tag tag-amber">Enterprise Reality</span>
+            </div>
+          </div>
+          <ul class="pillar-list">
+            <li><strong>Smallest Viable Agent</strong>: Replace bloated 5-agent swarms with clean single prompts + structured tools when sufficient.</li>
+            <li><strong>Deterministic Wrappers</strong>: Protect stochastic models with strict Pydantic schemas, validation regexes, and retry fallbacks.</li>
+            <li><strong>Observability First</strong>: Implement Langfuse / Phoenix tracing to quantify token costs, latency, and failure vectors for executives.</li>
+            <li><strong>Business-First Language</strong>: Translate "AGI & multi-agents" into "automation of Tier-2 workflows with 90% error reduction".</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SECURE -->
+      <div class="col-6">
+        <div class="pillar-card pillar-secure">
+          <div class="pillar-header">
+            <div class="pillar-icon">🔒</div>
+            <div>
+              <div class="pillar-title">4. SECURE: Commercials, Rates & Retention</div>
+              <span class="tag tag-emerald">Contracts & Revenue</span>
+            </div>
+          </div>
+          <ul class="pillar-list">
+            <li><strong>2-Week Discovery Sprint</strong>: Sell a fixed-fee Architecture Audit (£5k-£10k) as the low-friction gateway to long-term work.</li>
+            <li><strong>Retainer & Day Rates</strong>: Structure engagements around £800-£1,500/day or £8,000-£16,000/month fractional advisory.</li>
+            <li><strong>Defend Scope Creep</strong>: Tie Definition of Done (DoD) to quantitative benchmark metrics (e.g., accuracy >= 90% across 500 evals).</li>
+            <li><strong>Outside IR35 & SOW Protection</strong>: Clear business-to-business deliverables, substitution rights, and no MOO.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="toast">Copied to clipboard!</div>
+
+  <script>
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      const text = el.innerText || el.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast();
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.className = 'show';
+      setTimeout(() => {
+        toast.className = toast.className.replace('show', '');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
